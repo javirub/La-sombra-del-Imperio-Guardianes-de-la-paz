@@ -14,9 +14,9 @@ SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
 
 # Set up the window title, icon and background
 pygame.display.set_caption('Game')
-ICON = pygame.image.load('Images/icon.png')
+ICON = pygame.image.load('assets/images/other/icon.png')
 pygame.display.set_icon(ICON)
-BACKGROUND = pygame.image.load('Images/backgrounds/Starfield 1.png').convert()
+BACKGROUND = pygame.image.load('assets/images/backgrounds/Starfield 1.png').convert()
 
 # Init y
 y = 0
