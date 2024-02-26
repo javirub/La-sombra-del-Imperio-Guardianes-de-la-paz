@@ -1,41 +1,32 @@
-import pygame, sys
+import pygame
+import sys
 from pygame.locals import *
+from settings import WIDTH, HEIGHT, ICON_PATH
+from scenes.intro import IntroScene
+from scenes.menu import MenuScene
 
-# Initialize the game
-pygame.init()
+def main():
 
-# Define constants
-WIDTH, HEIGHT = 576, 1024
-FPS = 144
-CLOCK = pygame.time.Clock()
+    # Initialize the game
+    pygame.init()
+    # Set up the window
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    current_scene = IntroScene(screen)
 
-# Set up the window
-SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
+    # Set up the window title, icon and background
+    pygame.display.set_caption('La sombra del Imperio: Guardianes de la paz')
+    ICON = pygame.image.load(ICON_PATH)
+    pygame.display.set_icon(ICON)
 
-# Set up the window title, icon and background
-pygame.display.set_caption('Game')
-ICON = pygame.image.load('assets/images/other/icon.png')
-pygame.display.set_icon(ICON)
-BACKGROUND = pygame.image.load('assets/images/backgrounds/Starfield 1.png').convert()
+    # Run the game loop
+    while True:
+        if isinstance(current_scene, IntroScene):
+            next_scene = current_scene.run()
+            if next_scene == "menu":
+                current_scene = MenuScene(screen)
+            elif isinstance(current_scene, MenuScene):
+                current_scene.run()
 
-# Init y
-y = 0
+if __name__ == "__main__":
+    main()
 
-# Run the game loop
-while True:
-    for event in pygame.event.get():
-
-        if event.type == QUIT:
-            pygame.quit()
-            sys.exit()
-
-    # Adds background scrolling
-    relative_y = y % BACKGROUND.get_rect().height
-    SCREEN.blit(BACKGROUND, (0, (relative_y - BACKGROUND.get_rect().height)))
-    y += 0.1
-    if relative_y < HEIGHT:
-        SCREEN.blit(BACKGROUND, (0, relative_y))
-
-    # Updates the display and sets the FPS
-    pygame.display.update()
-    CLOCK.tick(FPS)
