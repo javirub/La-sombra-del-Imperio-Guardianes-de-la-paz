@@ -1,16 +1,26 @@
 import pygame
-import sys
-from pygame.locals import *
 from settings import WIDTH, HEIGHT, ICON_PATH
 from scenes.intro import IntroScene
 from scenes.menu import MenuScene
+from scenes.game import GameScene
+
+
+def get_scene_by_name(scene_name, screen):
+    if scene_name == "menu":
+        return MenuScene(screen)
+    elif scene_name == "game":
+        return GameScene(screen)
+    # Añade más escenas aquí según sea necesario
+    else:
+        return None
+
 
 def main():
-
     # Initialize the game
     pygame.init()
     # Set up the window
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    # Set up the current scene
     current_scene = IntroScene(screen)
 
     # Set up the window title, icon and background
@@ -20,13 +30,13 @@ def main():
 
     # Run the game loop
     while True:
-        if isinstance(current_scene, IntroScene):
-            next_scene = current_scene.run()
-            if next_scene == "menu":
-                current_scene = MenuScene(screen)
-            elif isinstance(current_scene, MenuScene):
-                current_scene.run()
+        current_scene.run()
+        if current_scene.done:
+            next_scene = current_scene.next_scene
+            current_scene = get_scene_by_name(next_scene, screen)
+            if current_scene is None:
+                break
+
 
 if __name__ == "__main__":
     main()
-

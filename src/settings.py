@@ -8,4 +8,4 @@ FPS = 144
 
 # Paths to assets
 ICON_PATH = '../assets/images/other/icon.png'
-BACKGROUND_PATH = '../assets/images/backgrounds/Starfield 1.png'
+BACKGROUND_PATH = '../assets/images/backgrounds/bgGame1.png'
