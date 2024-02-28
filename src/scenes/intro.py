@@ -10,7 +10,7 @@ class IntroScene:
         # Inicializa la escena
         self.screen = screen
         self.done = False
-        self.next_scene = "menu"  # Define a qué escena cambiar después
+        self.next_scene = "game"  # Define a qué escena cambiar después
 
         # Iniciamos el módulo mixer de pygame
         pygame.mixer.init()

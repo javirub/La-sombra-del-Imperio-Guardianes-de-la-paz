@@ -3,11 +3,12 @@ import math
 
 
 class Projectile:
-    def __init__(self, start_pos, angle):
+    def __init__(self, start_pos, angle, colour):
         self.x, self.y = start_pos
-        self.speed = 10  # Ajusta según la velocidad deseada para el proyectil
+        self.speed = 25  # Ajusta según la velocidad deseada para el proyectil
         self.angle = angle  # Dirección del proyectil
         self.length = 30  # Longitud del proyectil
+        self.colour = colour
 
     def update(self):
         # Mueve el proyectil en la dirección del ángulo
@@ -35,9 +36,9 @@ class Projectile:
 
 
         # Dibuja el proyectil
-        projectile1 = pygame.draw.line(screen, (0, 255, 0), (start_x1, start_y1), (end_x1, end_y1),
+        projectile1 = pygame.draw.line(screen, self.colour, (start_x1, start_y1), (end_x1, end_y1),
                                        2)  # Dibuja una línea verde
-        projectile2 = pygame.draw.line(screen, (0, 255, 0), (start_x2, start_y2), (end_x2,end_y2),
+        projectile2 = pygame.draw.line(screen, self.colour, (start_x2, start_y2), (end_x2,end_y2),
                                        2)  # Dibuja una línea verde
 
 

@@ -2,8 +2,9 @@ import sys
 
 import pygame
 
+import src.settings
 from src.game_objects.projectile import Projectile, EnemyProjectile
-from src.settings import WIDTH, HEIGHT, BACKGROUND_PATH
+from src.settings import *
 from src.game_objects.spaceship import TieFighter, XWing
 
 
@@ -15,14 +16,14 @@ class GameScene:
         self.background = pygame.image.load(BACKGROUND_PATH).convert()
         self.bg_y = 0  # Posición inicial del fondo
         self.bgSpeed = 2  # Velocidad de desplazamiento del fondo
-        self.player = TieFighter((WIDTH // 2, HEIGHT - 100))
+        self.player = TieFighter((WIDTH // 2, HEIGHT - 100), 0)
         self.player_projectiles = []
         pygame.mixer.set_num_channels(20)
-        # TODO: Añadir enemigos "en pruebas".
-        self.enemy_projectiles = []
-        self.enemy = XWing((WIDTH // 2, 100))
         pygame.mixer.music.load('../assets/music/game_song.ogg')
         pygame.mixer.music.play(-1)
+        # TODO: Añadir enemigos "en pruebas".
+        self.enemy_projectiles = []
+        self.enemy = XWing((WIDTH // 2, 100), 0)
 
     def run(self):
         while not self.done:
@@ -30,7 +31,7 @@ class GameScene:
             self.update()
             self.draw()
             pygame.display.flip()
-            pygame.time.Clock().tick(60) / 1000.0
+            pygame.time.Clock().tick(src.settings.FPS)
         pygame.mixer.music.stop()
 
     def handle_events(self):
@@ -40,7 +41,6 @@ class GameScene:
                 sys.exit()
         # Movimiento nave espacial teclado
         keys = pygame.key.get_pressed()
-        dx, dy = 0, 0  # Desplazamiento en x y y
 
         if keys[pygame.K_LEFT] or keys[pygame.K_a]:
             self.player.rotate(1)
@@ -48,23 +48,9 @@ class GameScene:
             self.player.rotate(-1)
 
         if keys[pygame.K_UP] or keys[pygame.K_w]:
-            self.player.move_forward()  # TODO: self.player.speedup() Para acelerar la nave
-        # if keys[pygame.K_DOWN] or keys[pygame.K_s]:
-        # TODO: self.player.slowdown() Para frenar la nave
-
-        if keys[pygame.K_z]:
-            if self.enemy.shoot(pygame.time.get_ticks()):
-                # Posición inicial proyectiles
-                if self.enemy.left:
-                    start_pos_left = (self.enemy.rect.midbottom[0] - 85, self.enemy.rect.midbottom[1] - 20)
-                    enemy_projectile_left = EnemyProjectile(start_pos_left)
-                    self.enemy.left = False
-                    self.enemy_projectiles.append(enemy_projectile_left)
-                else:
-                    self.enemy.left = True
-                    start_pos_right = (self.enemy.rect.midbottom[0] + 85, self.enemy.rect.midbottom[1] - 20)
-                    enemy_projectile_right = EnemyProjectile(start_pos_right)
-                    self.enemy_projectiles.append(enemy_projectile_right)
+            self.player.increase_speed()
+        if keys[pygame.K_DOWN] or keys[pygame.K_s]:
+            self.player.decrease_speed()
 
         if keys[pygame.K_SPACE]:
             if self.player.shoot(pygame.time.get_ticks()):
@@ -73,8 +59,8 @@ class GameScene:
                 start_pos_right = (self.player.rect.centerx, self.player.rect.centery)
 
                 # Crear proyectiles
-                projectile_left = Projectile(start_pos_left, self.player.radians)
-                projectile_right = Projectile(start_pos_right, self.player.radians)
+                projectile_left = Projectile(start_pos_left, self.player.radians, (0, 255, 0))
+                projectile_right = Projectile(start_pos_right, self.player.radians, (0, 255, 0))
 
                 # Añadir proyectiles a la lista después de crear ambos (para evitar desincronización)
                 self.player_projectiles.extend([projectile_left, projectile_right])
@@ -82,6 +68,7 @@ class GameScene:
     def update(self):
         # Actualizar la posición del fondo para que se desplace
         self.bg_y += self.bgSpeed
+        self.player.move_forward()
         if self.bg_y >= HEIGHT:
             self.bg_y = 0  # Reiniciar la posición del fondo para el efecto de bucle
 
@@ -97,9 +84,10 @@ class GameScene:
                 self.enemy_projectiles.remove(projectile)
 
     def draw(self):
-        # Dibujar el fondo en dos partes para el efecto de scrolling continuo
+        ''' Deprecated, antes iba a ser un juego de scroll vertical
         self.screen.blit(self.background, (0, self.bg_y - HEIGHT))
-        self.screen.blit(self.background, (0, self.bg_y))
+        self.screen.blit(self.background, (0, self.bg_y))'''
+        self.screen.blit(self.background, (0, 0))
         self.player.draw(self.screen)
         self.enemy.draw(self.screen)
         for projectile in self.player_projectiles:
