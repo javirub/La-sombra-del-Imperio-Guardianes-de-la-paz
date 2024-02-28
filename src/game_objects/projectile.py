@@ -8,12 +8,17 @@ class Projectile:
         self.speed = 25  # Ajusta según la velocidad deseada para el proyectil
         self.angle = angle  # Dirección del proyectil
         self.length = 30  # Longitud del proyectil
+        self.width = 2  # Ancho del proyectil
         self.colour = colour
+        self.rect = pygame.Rect(start_pos[0], start_pos[1], self.width, self.length)
+
 
     def update(self):
         # Mueve el proyectil en la dirección del ángulo
         self.x -= self.speed * math.cos(self.angle)
         self.y += self.speed * math.sin(self.angle)
+        self.rect.x = self.x
+        self.rect.y = self.y
 
     def draw(self, screen):
         # Calcula el ángulo corregido para la rotación
@@ -34,12 +39,11 @@ class Projectile:
         end_x2 = start_x2 - self.length * cos_angle
         end_y2 = start_y2 - self.length * sin_angle
 
-
         # Dibuja el proyectil
-        projectile1 = pygame.draw.line(screen, self.colour, (start_x1, start_y1), (end_x1, end_y1),
-                                       2)  # Dibuja una línea verde
-        projectile2 = pygame.draw.line(screen, self.colour, (start_x2, start_y2), (end_x2,end_y2),
-                                       2)  # Dibuja una línea verde
+        pygame.draw.line(screen, self.colour, (start_x1, start_y1), (end_x1, end_y1),
+                         self.width)  # Dibuja una línea verde
+        pygame.draw.line(screen, self.colour, (start_x2, start_y2), (end_x2, end_y2),
+                         self.width)  # Dibuja una línea verde
 
 
 class EnemyProjectile:

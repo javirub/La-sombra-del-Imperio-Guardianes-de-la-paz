@@ -1,8 +1,8 @@
-import pygame, math
+import math
 
 import src.settings
 from src.settings import *
-
+from src.utils.sprites import *
 
 class Spaceship:  # Clase padre de las naves espaciales
     def __init__(self, position, rotation, image_path, sound_path):
@@ -19,6 +19,15 @@ class Spaceship:  # Clase padre de las naves espaciales
         self.rotation_speed = 4
         self.speed_change_per_update = (self.max_speed - self.min_speed) / (60 * 3)
         self.sound_path = sound_path
+        self.animating = False
+        self.explosion_sprite = load_sprite_sheet(EXPLOSION_SPRITE, 8, 6)
+        self.current_sprite_index = None
+
+
+    def start_hit_animation(self):
+        self.animating = True
+        self.current_sprite_index = 0
+        pygame.mixer.Sound(EXPLOSION_SOUND).play()
 
     def draw(self, screen):
         screen.blit(self.rotated, self.rect)
@@ -32,6 +41,13 @@ class Spaceship:  # Clase padre de las naves espaciales
             self.rect.y = -self.rect.height
         elif self.rect.y < -self.rect.height:
             self.rect.y = HEIGHT
+        # Dibujar animación de explosión
+        if self.animating:
+            self.current_sprite_index += 1
+            if self.current_sprite_index >= len(self.explosion_sprite):
+                self.animating = False
+            else:
+                screen.blit(self.explosion_sprite[int(self.current_sprite_index)], self.rect)
 
     def rotate(self, angle):
         """Rota la nave en el ángulo específicado."""

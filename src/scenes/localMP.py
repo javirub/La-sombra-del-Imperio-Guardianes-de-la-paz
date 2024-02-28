@@ -6,7 +6,7 @@ import src.settings
 from src.game_objects.projectile import Projectile, EnemyProjectile
 from src.settings import *
 from src.game_objects.spaceship import TieFighter, XWing
-
+from src.utils.collision import *
 
 class LocalMPScene:
     def __init__(self, screen):
@@ -100,14 +100,25 @@ class LocalMPScene:
         self.player1.move_forward()
         self.player2.move_forward()
 
+        if check_collision(self.player1.rect, self.player2.rect):
+            print("Los jugadores han chocado")
+
         # Actualizar la posición de los proyectiles
         for projectile in self.player1_projectiles:
             projectile.update()
+            if check_collision(projectile.rect, self.player2.rect):
+                print("Player 1 hit player 2") # TODO: Implementar daño a la nave
+                self.player1_projectiles.remove(projectile)
+                self.player2.start_hit_animation()
             if projectile.y < 0 or projectile.y > HEIGHT or projectile.x < 0 or projectile.x > WIDTH:
                 self.player1_projectiles.remove(projectile)
 
         for projectile in self.player2_projectiles:
             projectile.update()
+            if check_collision(projectile.rect, self.player1.rect):
+                print("Player 2 hit player 1")
+                self.player2_projectiles.remove(projectile)
+                self.player1.start_hit_animation()
             if projectile.y < 0 or projectile.y > HEIGHT or projectile.x < 0 or projectile.x > WIDTH:
                 self.player2_projectiles.remove(projectile)
 
