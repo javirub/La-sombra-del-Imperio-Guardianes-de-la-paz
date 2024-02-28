@@ -14,6 +14,8 @@ class MenuScene:
         self.font = pygame.font.Font(None, 36)
         self.current_option = 0
         self.background = pygame.image.load('../assets/images/backgrounds/bgMenu.jpg').convert_alpha()
+        pygame.mixer.music.load('../assets/music/menu_song.ogg')
+        pygame.mixer.music.play(-1)
 
     def run(self):
         while not self.done:
@@ -31,6 +33,7 @@ class MenuScene:
             self.screen.blit(self.background, (0, 0))
             self.draw_options()
             pygame.display.flip()
+        pygame.mixer.music.stop()
 
     def draw_options(self):
         for i, option in enumerate(self.options):

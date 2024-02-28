@@ -7,7 +7,7 @@ class TieFighter:
         self.image = pygame.image.load("../assets/images/spaceships/tie.png").convert_alpha()
         self.rect = self.image.get_rect(center=position)
         self.speed = 8  # Velocidad de la nave
-        self.angle = 270  # Ángulo inicial de la nave
+        self.angle = 0  # Ángulo inicial de la nave
         self.radians = math.radians(self.angle)
         self.rotated = pygame.transform.rotate(self.image, self.angle)
         self.cadence = 500  # Velocidad de disparo
@@ -41,11 +41,6 @@ class TieFighter:
         self.rect.x -= self.speed * math.cos(self.radians)
         self.rect.y += self.speed * math.sin(self.radians)
 
-    def move_backward(self):
-        """Mueve la nave hacia atrás."""
-        angle_rad = math.radians(self.angle)
-        self.rect.x += self.speed * math.cos(angle_rad)
-        self.rect.y -= self.speed * math.sin(angle_rad)
 
     def can_shoot(self, current_time):
         return current_time - self.last_shot_time >= self.cadence

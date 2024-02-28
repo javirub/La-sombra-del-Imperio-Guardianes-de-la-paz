@@ -21,16 +21,17 @@ class GameScene:
         # TODO: Añadir enemigos "en pruebas".
         self.enemy_projectiles = []
         self.enemy = XWing((WIDTH // 2, 100))
+        pygame.mixer.music.load('../assets/music/game_song.ogg')
+        pygame.mixer.music.play(-1)
 
     def run(self):
         while not self.done:
-
             self.handle_events()
             self.update()
             self.draw()
             pygame.display.flip()
             pygame.time.Clock().tick(60) / 1000.0
-
+        pygame.mixer.music.stop()
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -47,9 +48,9 @@ class GameScene:
             self.player.rotate(-1)
 
         if keys[pygame.K_UP] or keys[pygame.K_w]:
-            self.player.move_forward()
-        if keys[pygame.K_DOWN] or keys[pygame.K_s]:
-            self.player.move_backward()
+            self.player.move_forward()  # TODO: self.player.speedup() Para acelerar la nave
+        # if keys[pygame.K_DOWN] or keys[pygame.K_s]:
+        # TODO: self.player.slowdown() Para frenar la nave
 
         if keys[pygame.K_z]:
             if self.enemy.shoot(pygame.time.get_ticks()):
@@ -68,8 +69,8 @@ class GameScene:
         if keys[pygame.K_SPACE]:
             if self.player.shoot(pygame.time.get_ticks()):
                 # Posición inicial proyectiles
-                start_pos_left = (self.player.rect.midtop[0] - 14, self.player.rect.midtop[1])
-                start_pos_right = (self.player.rect.midtop[0] + 14, self.player.rect.midtop[1])
+                start_pos_left = (self.player.rect.centerx, self.player.rect.centery)
+                start_pos_right = (self.player.rect.centerx, self.player.rect.centery)
 
                 # Crear proyectiles
                 projectile_left = Projectile(start_pos_left, self.player.radians)

@@ -14,7 +14,7 @@ class IntroScene:
 
         # Iniciamos el módulo mixer de pygame
         pygame.mixer.init()
-        self.load_music('../assets/music/main_song.ogg')
+        self.load_music('../assets/music/intro_song.ogg')
 
         # Configuración del texto
         self.font_size = 40
