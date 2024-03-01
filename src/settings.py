@@ -19,5 +19,7 @@ EXPLOSION_SOUND = '../assets/sounds/explosion.ogg'
 INTRO_SONG_PATH = '../assets/music/intro_song.ogg'
 MENU_SONG_PATH = '../assets/music/menu_song.ogg'
 GAME_SONG_PATH = '../assets/music/game_song.ogg'
+IMPERIUM_WINNER_SONG_PATH = '../assets/music/menu_song.ogg'
+REBEL_WINNER_SONG_PATH = '../assets/music/intro_song.ogg'
 
 

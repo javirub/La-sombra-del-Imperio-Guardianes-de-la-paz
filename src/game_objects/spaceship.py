@@ -4,6 +4,7 @@ import src.settings
 from src.settings import *
 from src.utils.sprites import *
 
+
 class Spaceship:  # Clase padre de las naves espaciales
     def __init__(self, position, rotation, image_path, sound_path):
         self.image = pygame.image.load(image_path).convert_alpha()
@@ -22,16 +23,19 @@ class Spaceship:  # Clase padre de las naves espaciales
         self.animating = False
         self.explosion_sprite = load_sprite_sheet(EXPLOSION_SPRITE, 8, 6)
         self.current_sprite_index = None
-
+        self.life = 100
 
     def start_hit_animation(self):
         self.animating = True
         self.current_sprite_index = 0
         pygame.mixer.Sound(EXPLOSION_SOUND).play()
+        self.life -= 10
 
     def draw(self, screen):
+        # Dibujar nave espacial
         screen.blit(self.rotated, self.rect)
 
+        # Si la nave sale de la pantalla, aparece por el otro lado
         if self.rect.x > WIDTH:
             self.rect.x = -self.rect.width
         elif self.rect.x < -self.rect.width:
@@ -41,13 +45,18 @@ class Spaceship:  # Clase padre de las naves espaciales
             self.rect.y = -self.rect.height
         elif self.rect.y < -self.rect.height:
             self.rect.y = HEIGHT
+
         # Dibujar animación de explosión
         if self.animating:
             self.current_sprite_index += 1
             if self.current_sprite_index >= len(self.explosion_sprite):
                 self.animating = False
             else:
-                screen.blit(self.explosion_sprite[int(self.current_sprite_index)], self.rect)
+                # Calculamos la posición de la explosión en base al centro de la nave y el tamaño de la explosión
+                explosion_x = self.rect.centerx - self.explosion_sprite[int(self.current_sprite_index)].get_width() / 2
+                explosion_y = self.rect.centery - self.explosion_sprite[int(self.current_sprite_index)].get_height() / 2
+                # Dibujamos la explosión
+                screen.blit(self.explosion_sprite[int(self.current_sprite_index)], (explosion_x, explosion_y))
 
     def rotate(self, angle):
         """Rota la nave en el ángulo específicado."""

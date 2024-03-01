@@ -1,12 +1,12 @@
 import sys
 
-import pygame
 
 import src.settings
-from src.game_objects.projectile import Projectile, EnemyProjectile
+from src.game_objects.projectile import Projectile
 from src.settings import *
 from src.game_objects.spaceship import TieFighter, XWing
 from src.utils.collision import *
+
 
 class LocalMPScene:
     def __init__(self, screen):
@@ -88,26 +88,38 @@ class LocalMPScene:
                 # Añadir proyectiles a la lista después de crear ambos (para evitar desincronización)
                 self.player2_projectiles.extend([projectile_left, projectile_right])
 
-
-
     def update(self):
-        # Actualizar la posición del fondo para que se desplace
+        """A cada frame, realiza las comprobaciones y movimientos correspondientes."""
         '''Deprecated
         self.bg_y += self.bgSpeed
         if self.bg_y >= HEIGHT:
             self.bg_y = 0  # Reiniciar la posición del fondo para el efecto de bucle'''
+
+        # Comprobación vida de las naves
+        if self.player1.life <= 0:
+            self.next_scene = "RebelWinner"
+            self.done = True
+        if self.player2.life <= 0:
+            self.next_scene = "ImperiumWinner"
+            self.done = True
+
         # Movimiento de los jugadores
         self.player1.move_forward()
         self.player2.move_forward()
 
         if check_collision(self.player1.rect, self.player2.rect):
-            print("Los jugadores han chocado")
+            # TODO: Implementar colisión entre naves espaciales
+            # self.player1.start_hit_animation()
+            # self.player2.start_hit_animation()
+            pass
 
         # Actualizar la posición de los proyectiles
         for projectile in self.player1_projectiles:
             projectile.update()
             if check_collision(projectile.rect, self.player2.rect):
-                print("Player 1 hit player 2") # TODO: Implementar daño a la nave
+                # Si el proyectil colisiona con la nave del jugador 2,
+                # se elimina el proyectil y se inicia la animación de impacto
+                print("Player 1 hit player 2")  # TODO: Implementar daño a la nave
                 self.player1_projectiles.remove(projectile)
                 self.player2.start_hit_animation()
             if projectile.y < 0 or projectile.y > HEIGHT or projectile.x < 0 or projectile.x > WIDTH:
