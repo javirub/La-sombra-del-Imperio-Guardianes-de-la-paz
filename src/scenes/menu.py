@@ -10,7 +10,7 @@ class MenuScene:
         self.done = False
         self.next_scene = "menu"
         # Configura aquí los elementos del menú
-        self.options = ["Jugar campaña", "Multijugador local", "Multijugador en linea", "Opciones", "Salir"]
+        self.options = ["Jugar campaña", "Multijugador local", "Multijugador en linea", "Introducir codigo", "Opciones", "Salir"]
         self.font = pygame.font.Font(None, 36)
         self.current_option = 0
         self.background = pygame.image.load('../assets/images/backgrounds/bgMenu.jpg').convert_alpha()
@@ -52,6 +52,11 @@ class MenuScene:
             self.done = True
         elif selected_option == "Opciones":
             print("Opciones")
+        elif selected_option == "Multijugador en linea":
+            print("Multijugador en linea")
+        elif selected_option == "Introducir codigo":
+            self.next_scene = "inputCode"
+            self.done = True
         elif selected_option == "Salir":
             pygame.quit()
             sys.exit()

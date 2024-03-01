@@ -5,6 +5,7 @@ from scenes.menu import MenuScene
 from scenes.game import GameScene
 from scenes.localMP import LocalMPScene
 from scenes.winner import RebelWinner, ImperiumWinner
+from scenes.inputcode import InputCode
 
 
 def get_scene_by_name(scene_name, screen):
@@ -20,6 +21,8 @@ def get_scene_by_name(scene_name, screen):
         return RebelWinner(screen)
     elif scene_name == "ImperiumWinner":
         return ImperiumWinner(screen)
+    elif scene_name == "inputCode":
+        return InputCode(screen)
     # Añade más escenas aquí según sea necesario
     else:
         return MenuScene(screen)
