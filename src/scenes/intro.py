@@ -3,18 +3,19 @@
 import pygame
 import sys
 from src.settings import WIDTH, HEIGHT  # Asegúrate de definir estas constantes en settings.py
+from .scene import Scene  # Importa la clase Scene desde el módulo scene.py
 
 
-class IntroScene:
+class IntroScene(Scene):
     def __init__(self, screen):
+        super().__init__(screen)
         # Inicializa la escena
-        self.screen = screen
-        self.done = False
         self.next_scene = "game"  # Define a qué escena cambiar después
 
         # Iniciamos el módulo mixer de pygame
         pygame.mixer.init()
-        self.load_music('../assets/music/intro_song.ogg')
+        pygame.mixer.music.load('../assets/music/intro_song.ogg')
+        pygame.mixer.music.play(-1)
 
         # Configuración del texto
         self.font_size = 40
@@ -69,45 +70,37 @@ class IntroScene:
         # Contador para el narrador
         self.timer = 0
 
-    def load_music(self, music_path):
-        pygame.mixer.music.load(music_path)
-        pygame.mixer.music.play(-1)
+    def update(self):
+        if self.timer < 230:
+            self.timer += 1
+        elif self.timer == 230:
+            self.sound_narrator.play()
+            self.timer += 1
+        elif self.timer < 2000:
+            self.timer += 1
+        else:
+            self.done = True
+
+    def draw(self):
+        self.screen.blit(self.background, (0, 0))  # Fondo estrellas
+
+        # Renderizar el texto
+        for i, line in enumerate(self.lines):
+            line_surf = self.font.render(line, True, self.text_color)
+            line_pos = line_surf.get_rect(center=(WIDTH / 2, self.text_pos_y + i * self.font_size - self.offset))
+            self.screen.blit(line_surf, line_pos)
+
+        self.text_pos_y -= 0.5  # Velocidad de desplazamiento del texto
+        self.offset += 0.5  # Incremento para crear el efecto de perspectiva
+
+        # Texto presione ESC para saltar parpadeante
+        if self.timer % 20 < 10:
+            text = self.font.render("Presione ESC para saltar", True, (255, 255, 255))
+            text_rect = text.get_rect(center=(WIDTH - 300, HEIGHT - 50))
+            self.screen.blit(text, text_rect)
 
     def run(self):
-        while not self.done:
-            self.handle_events()
-            self.screen.blit(self.background, (0, 0))  # Fondo estrellas
-
-            # Temporizador audio
-            if self.timer < 230:
-                self.timer += 1
-            elif self.timer == 230:
-                self.sound_narrator.play()
-                self.timer += 1
-            elif self.timer < 2000:
-                self.timer += 1
-            else:
-                self.done = True
-
-            # Renderizar el texto
-            for i, line in enumerate(self.lines):
-                line_surf = self.font.render(line, True, self.text_color)
-                line_pos = line_surf.get_rect(center=(WIDTH / 2, self.text_pos_y + i * self.font_size - self.offset))
-                self.screen.blit(line_surf, line_pos)
-
-            self.text_pos_y -= 0.5  # Velocidad de desplazamiento del texto
-            self.offset += 0.5  # Incremento para crear el efecto de perspectiva
-
-            # Texto presione ESC para saltar parpadeante
-            if self.timer % 20 < 10:
-                text = self.font.render("Presione ESC para saltar", True, (255, 255, 255))
-                text_rect = text.get_rect(center=(WIDTH - 300, HEIGHT - 50))
-                self.screen.blit(text, text_rect)
-
-
-            pygame.display.flip()
-            pygame.time.Clock().tick(30)
-        pygame.mixer.music.stop()
+        super().run()
         self.sound_narrator.stop()
 
     def handle_events(self):
@@ -119,4 +112,3 @@ class IntroScene:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     self.done = True
-

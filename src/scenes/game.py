@@ -1,17 +1,15 @@
 import sys
 
-import pygame
-
 import src.settings
-from src.game_objects.projectile import Projectile, EnemyProjectile
+from src.game_objects.projectile import *
+from src.scenes.scene import Scene
 from src.settings import *
 from src.game_objects.spaceship import TieFighter, XWing
 
 
-class GameScene:
+class GameScene(Scene):
     def __init__(self, screen):
-        self.screen = screen
-        self.done = False
+        super().__init__(screen)  # Inicializa la clase padre Scene
         self.next_scene = "menu"
         self.background = pygame.image.load(BACKGROUND_PATH).convert()
         self.bg_y = 0  # Posición inicial del fondo
@@ -26,12 +24,7 @@ class GameScene:
         self.enemy = XWing((WIDTH // 2, 100), 0)
 
     def run(self):
-        while not self.done:
-            self.handle_events()
-            self.update()
-            self.draw()
-            pygame.display.flip()
-            pygame.time.Clock().tick(src.settings.FPS)
+        super().run()
         pygame.mixer.music.stop()
 
     def handle_events(self):

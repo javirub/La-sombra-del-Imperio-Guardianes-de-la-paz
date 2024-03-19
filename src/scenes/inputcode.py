@@ -1,43 +1,32 @@
 import pygame
 from src.settings import *
+from src.scenes.scene import Scene
+import sys
 
-class InputCode:
+
+class InputCode(Scene):
     def __init__(self, screen):
-        self.screen = screen
-        self.done = False
+        super().__init__(screen)
         self.font = pygame.font.Font(None, 50)  # Define la fuente y tamaño del texto
         self.input_text = ''  # Texto que se va ingresando
-        self.next_scene = ''  # La escena a la que se navegará
+        self.next_scene = None  # La escena a la que se navegará
         self.text_box_rect = pygame.Rect(0, 0, 600, 50)
         self.text_box_rect.center = (WIDTH // 2, HEIGHT // 2)  # Centra el rectángulo en la pantalla
 
-    def run(self):
-        while not self.done:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                elif event.type == pygame.KEYDOWN:
-                    self.handle_event(event)
-            self.update()
-            self.draw()
-            pygame.display.flip()
-            pygame.time.Clock().tick(FPS)
-
-    def handle_event(self, event):
-        # Maneja los eventos de teclado
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RETURN:
-                # Aquí defines la lógica para decidir a qué escena ir basado en la contraseña
-                self.next_scene = self.get_scene_from_code(self.input_text)
-                self.done = True
-            elif event.key == pygame.K_BACKSPACE:
-                self.input_text = self.input_text[:-1]
-            else:
-                self.input_text += event.unicode
-
-    def update(self):
-        # Actualiza cualquier lógica de la escena si es necesario
-        pass
+    def handle_events(self):
+        # Maneja la lógica de los eventos
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    self.next_scene = self.get_scene_from_code(self.input_text)
+                    self.done = True
+                elif event.key == pygame.K_BACKSPACE:
+                    self.input_text = self.input_text[:-1]
+                else:
+                    self.input_text += event.unicode
 
     def draw(self):
         # Dibuja el fondo, el texto de entrada y cualquier otra interfaz gráfica
@@ -55,6 +44,7 @@ class InputCode:
             return "intro"
         elif code == "prueba":
             return "localMP"
-
+        elif code == "largavidaalimperio":
+            return "ImperiumWinner"
         else:
             return "menu"  # Si la contraseña no coincide, vuelve al menú

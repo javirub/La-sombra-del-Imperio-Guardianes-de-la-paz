@@ -1,17 +1,16 @@
 import sys
 
-
 import src.settings
-from src.game_objects.projectile import Projectile
+from src.game_objects.projectile import *
 from src.settings import *
 from src.game_objects.spaceship import TieFighter, XWing
 from src.utils.collision import *
+from src.scenes.scene import Scene
 
 
-class LocalMPScene:
+class LocalMPScene(Scene):
     def __init__(self, screen):
-        self.screen = screen
-        self.done = False
+        super().__init__(screen)
         self.next_scene = "menu"
         self.background = pygame.image.load(BACKGROUND_PATH).convert()
         self.bg_y = 0  # Posición inicial del fondo
@@ -23,15 +22,6 @@ class LocalMPScene:
         pygame.mixer.music.play(-1)
         self.player2_projectiles = []
         self.player2 = XWing((WIDTH - 100, HEIGHT - 200), 0)
-
-    def run(self):
-        while not self.done:
-            self.handle_events()
-            self.update()
-            self.draw()
-            pygame.display.flip()
-            pygame.time.Clock().tick(src.settings.FPS)
-        pygame.mixer.music.stop()
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -52,17 +42,7 @@ class LocalMPScene:
             self.player1.decrease_speed()
 
         if keys[pygame.K_SPACE]:
-            if self.player1.shoot(pygame.time.get_ticks()):
-                # Posición inicial proyectiles
-                start_pos_left = (self.player1.rect.centerx, self.player1.rect.centery)
-                start_pos_right = (self.player1.rect.centerx, self.player1.rect.centery)
-
-                # Crear proyectiles
-                projectile_left = Projectile(start_pos_left, self.player1.radians, (0, 255, 0))
-                projectile_right = Projectile(start_pos_right, self.player1.radians, (0, 255, 0))
-
-                # Añadir proyectiles a la lista después de crear ambos (para evitar desincronización)
-                self.player1_projectiles.extend([projectile_left, projectile_right])
+            self.player1.shoot(pygame.time.get_ticks())
 
         # Controles jugador 2
         if keys[pygame.K_LEFT]:
@@ -76,17 +56,7 @@ class LocalMPScene:
             self.player2.decrease_speed()
 
         if keys[pygame.K_RCTRL]:
-            if self.player2.shoot(pygame.time.get_ticks()):
-                # Posición inicial proyectiles
-                start_pos_left = (self.player2.rect.centerx, self.player2.rect.centery)
-                start_pos_right = (self.player2.rect.centerx, self.player2.rect.centery)
-
-                # Crear proyectiles
-                projectile_left = Projectile(start_pos_left, self.player2.radians, (255, 0, 0))
-                projectile_right = Projectile(start_pos_right, self.player2.radians, (255, 0, 0))
-
-                # Añadir proyectiles a la lista después de crear ambos (para evitar desincronización)
-                self.player2_projectiles.extend([projectile_left, projectile_right])
+            self.player2.shoot(pygame.time.get_ticks())
 
     def update(self):
         """A cada frame, realiza las comprobaciones y movimientos correspondientes."""
@@ -116,10 +86,10 @@ class LocalMPScene:
         # Actualizar la posición de los proyectiles
         for projectile in self.player1_projectiles:
             projectile.update()
-            if check_collision(projectile.rect, self.player2.rect):
+            if (check_collision(projectile.hitbox1, self.player2.rect) or
+                    check_collision(projectile.hitbox2, self.player2.rect)):
                 # Si el proyectil colisiona con la nave del jugador 2,
                 # se elimina el proyectil y se inicia la animación de impacto
-                print("Player 1 hit player 2")  # TODO: Implementar daño a la nave
                 self.player1_projectiles.remove(projectile)
                 self.player2.start_hit_animation()
             if projectile.y < 0 or projectile.y > HEIGHT or projectile.x < 0 or projectile.x > WIDTH:
@@ -127,8 +97,8 @@ class LocalMPScene:
 
         for projectile in self.player2_projectiles:
             projectile.update()
-            if check_collision(projectile.rect, self.player1.rect):
-                print("Player 2 hit player 1")
+            if (check_collision(projectile.hitbox1, self.player1.rect) or
+                    check_collision(projectile.hitbox2, self.player1.rect)):
                 self.player2_projectiles.remove(projectile)
                 self.player1.start_hit_animation()
             if projectile.y < 0 or projectile.y > HEIGHT or projectile.x < 0 or projectile.x > WIDTH:

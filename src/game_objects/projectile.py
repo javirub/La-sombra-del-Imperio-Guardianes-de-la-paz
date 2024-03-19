@@ -3,7 +3,7 @@ import math
 
 
 class Projectile:
-    def __init__(self, start_pos, angle, colour):
+    def __init__(self, start_pos, angle, offset_x=0, offset_y=0, colour=(0, 0, 0)):
         self.x, self.y = start_pos
         self.speed = 25  # Ajusta según la velocidad deseada para el proyectil
         self.angle = angle  # Dirección del proyectil
@@ -11,48 +11,29 @@ class Projectile:
         self.width = 2  # Ancho del proyectil
         self.colour = colour
         self.rect = pygame.Rect(start_pos[0], start_pos[1], self.width, self.length)
-
+        self.offset_x, self.offset_y = offset_x, offset_y
+        self.hitbox = pygame.Rect(self.x, self.y, self.width, self.length)
 
     def update(self):
         # Mueve el proyectil en la dirección del ángulo
         self.x -= self.speed * math.cos(self.angle)
         self.y += self.speed * math.sin(self.angle)
-        self.rect.x = self.x
-        self.rect.y = self.y
+        # Hitboxes de cada bala.
+        self.hitbox.x = self.x + self.offset_x
+        self.hitbox.y = self.y + self.offset_y
 
     def draw(self, screen):
         # Calcula el ángulo corregido para la rotación
         angle_corrected = -self.angle
         cos_angle = math.cos(angle_corrected)
         sin_angle = math.sin(angle_corrected)
-        offset_y1 = -10
-        offset_y2 = 8
 
         # Calcula las nuevas posiciones de inicio y fin considerando la rotación
-        start_x1 = self.x + offset_y1 * sin_angle
-        start_y1 = self.y - offset_y1 * cos_angle
-        end_x1 = start_x1 - self.length * cos_angle
-        end_y1 = start_y1 - self.length * sin_angle
-
-        start_x2 = self.x + offset_y2 * sin_angle
-        start_y2 = self.y - offset_y2 * cos_angle
-        end_x2 = start_x2 - self.length * cos_angle
-        end_y2 = start_y2 - self.length * sin_angle
+        start_x = self.x + self.offset_y * sin_angle + self.offset_x * cos_angle
+        start_y = self.y - self.offset_y * cos_angle + self.offset_x * sin_angle
+        end_x = start_x - self.length * cos_angle
+        end_y = start_y - self.length * sin_angle
 
         # Dibuja el proyectil
-        pygame.draw.line(screen, self.colour, (start_x1, start_y1), (end_x1, end_y1),
+        pygame.draw.line(screen, self.colour, (start_x, start_y), (end_x, end_y),
                          self.width)  # Dibuja una línea verde
-        pygame.draw.line(screen, self.colour, (start_x2, start_y2), (end_x2, end_y2),
-                         self.width)  # Dibuja una línea verde
-
-
-class EnemyProjectile:
-    def __init__(self, start_pos):
-        self.x, self.y = start_pos
-        self.speed = 10  # Ajusta según la velocidad deseada para el proyectil
-
-    def update(self):
-        self.y += self.speed  # Mover el proyectil hacia abajo
-
-    def draw(self, screen):
-        pygame.draw.line(screen, (255, 0, 0), (self.x, self.y), (self.x, self.y - 30), 2)  # Dibuja una línea roja

@@ -2,15 +2,15 @@
 
 import pygame
 import sys
+from .scene import Scene
 
 
-class MenuScene:
+class MenuScene(Scene):
     def __init__(self, screen):
-        self.screen = screen
-        self.done = False
-        self.next_scene = "menu"
+        super().__init__(screen)  # Inicializa la clase padre Scene
         # Configura aquí los elementos del menú
-        self.options = ["Jugar campaña", "Multijugador local", "Multijugador en linea", "Introducir codigo", "Opciones", "Salir"]
+        self.options = ["Jugar campaña", "Multijugador local", "Multijugador en linea", "Introducir codigo", "Opciones",
+                        "Salir"]
         self.font = pygame.font.Font(None, 36)
         self.current_option = 0
         self.background = pygame.image.load('../assets/images/backgrounds/bgMenu.jpg').convert_alpha()
@@ -18,22 +18,25 @@ class MenuScene:
         pygame.mixer.music.play(-1)
 
     def run(self):
-        while not self.done:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_UP:
-                        self.current_option = (self.current_option - 1) % len(self.options)
-                    elif event.key == pygame.K_DOWN:
-                        self.current_option = (self.current_option + 1) % len(self.options)
-                    elif event.key == pygame.K_RETURN:
-                        self.option_selected()
-            self.screen.blit(self.background, (0, 0))
-            self.draw_options()
-            pygame.display.flip()
+        super().run()
         pygame.mixer.music.stop()
+
+    def handle_events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    self.current_option = (self.current_option - 1) % len(self.options)
+                elif event.key == pygame.K_DOWN:
+                    self.current_option = (self.current_option + 1) % len(self.options)
+                elif event.key == pygame.K_RETURN:
+                    self.option_selected()
+
+    def draw(self):
+        self.screen.blit(self.background, (0, 0))
+        self.draw_options()
 
     def draw_options(self):
         for i, option in enumerate(self.options):

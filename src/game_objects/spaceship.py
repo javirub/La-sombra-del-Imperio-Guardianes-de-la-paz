@@ -3,6 +3,7 @@ import math
 import src.settings
 from src.settings import *
 from src.utils.sprites import *
+from src.game_objects.projectile import *
 
 
 class Spaceship:  # Clase padre de las naves espaciales
@@ -88,19 +89,35 @@ class Spaceship:  # Clase padre de las naves espaciales
         if self.can_shoot(current_time):
             pygame.mixer.Sound(self.sound_path).play()
             self.last_shot_time = current_time
-            return True
-        return False
+            return self.create_projectile()
+        return None
 
     def update_rotation_speed(self):
         """Actualiza la velocidad de rotación de la nave."""
         self.rotation_speed = 3 - (self.speed - self.min_speed) * (1.0 / (self.max_speed - self.min_speed))
+
+    def create_projectile(self):
+        """Debe ser sobreescrito por subclases."""
+        raise NotImplementedError
 
 
 class TieFighter(Spaceship):
     def __init__(self, position, rotation):
         super().__init__(position, rotation, src.settings.TIE_SPRITE, src.settings.TIE_SOUND)
 
+    def create_projectile(self):
+        return [
+            Projectile((self.rect.centerx, self.rect.centery), self.radians, 0, 10, (255, 0, 0)),
+            Projectile((self.rect.centerx, self.rect.centery), self.radians, 0, -10, (255, 0, 0))
+        ]
+
 
 class XWing(Spaceship):
     def __init__(self, position, rotation):
         super().__init__(position, rotation, src.settings.XWING_SPRITE, src.settings.XWING_SOUND)
+        self.fire_toggle = False
+
+    def create_projectile(self):
+        self.fire_toggle = not self.fire_toggle
+        offset_y = 50 if self.fire_toggle else -50
+        return Projectile((self.rect.centerx, self.rect.centery), self.radians, 0, offset_y, (0, 0, 255))
