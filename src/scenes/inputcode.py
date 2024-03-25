@@ -46,5 +46,7 @@ class InputCode(Scene):
             return "localMP"
         elif code == "largavidaalimperio":
             return "ImperiumWinner"
+        elif code == "ElonMusk":
+            return "Deathstar"
         else:
             return "menu"  # Si la contraseña no coincide, vuelve al menú

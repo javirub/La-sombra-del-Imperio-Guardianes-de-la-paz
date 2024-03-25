@@ -1,5 +1,7 @@
 import math
 
+import pygame.draw
+
 import src.settings
 from src.settings import *
 from src.utils.sprites import *
@@ -25,6 +27,7 @@ class Spaceship:  # Clase padre de las naves espaciales
         self.explosion_sprite = load_sprite_sheet(EXPLOSION_SPRITE, 8, 6)
         self.current_sprite_index = None
         self.life = 100
+        self.projectiles = []
 
     def start_hit_animation(self):
         self.animating = True
@@ -59,6 +62,9 @@ class Spaceship:  # Clase padre de las naves espaciales
                 # Dibujamos la explosión
                 screen.blit(self.explosion_sprite[int(self.current_sprite_index)], (explosion_x, explosion_y))
 
+        for projectile in self.projectiles:
+            projectile.draw(screen)
+
     def rotate(self, angle):
         """Rota la nave en el ángulo específicado."""
         rotation_amount = self.rotation_speed * angle
@@ -89,7 +95,8 @@ class Spaceship:  # Clase padre de las naves espaciales
         if self.can_shoot(current_time):
             pygame.mixer.Sound(self.sound_path).play()
             self.last_shot_time = current_time
-            return self.create_projectile()
+            self.create_projectile()
+            pass
         return None
 
     def update_rotation_speed(self):
@@ -98,7 +105,14 @@ class Spaceship:  # Clase padre de las naves espaciales
 
     def create_projectile(self):
         """Debe ser sobreescrito por subclases."""
-        raise NotImplementedError
+        self.projectiles.append(Projectile((self.rect.centerx, self.rect.centery), self.radians, 0, 0, (0, 0, 0)))
+
+    def update(self):
+        self.move_forward()
+        for projectile in self.projectiles:
+            projectile.update()
+            if projectile.y < 0 or projectile.y > HEIGHT or projectile.x < 0 or projectile.x > WIDTH:
+                self.projectiles.remove(projectile)
 
 
 class TieFighter(Spaceship):
@@ -106,10 +120,8 @@ class TieFighter(Spaceship):
         super().__init__(position, rotation, src.settings.TIE_SPRITE, src.settings.TIE_SOUND)
 
     def create_projectile(self):
-        return [
-            Projectile((self.rect.centerx, self.rect.centery), self.radians, 0, 10, (255, 0, 0)),
-            Projectile((self.rect.centerx, self.rect.centery), self.radians, 0, -10, (255, 0, 0))
-        ]
+        self.projectiles.append(Projectile((self.rect.centerx, self.rect.centery), self.radians, 0, 10, (0, 255, 0)))
+        self.projectiles.append(Projectile((self.rect.centerx, self.rect.centery), self.radians, 0, -10, (0, 255, 0)))
 
 
 class XWing(Spaceship):
@@ -120,4 +132,18 @@ class XWing(Spaceship):
     def create_projectile(self):
         self.fire_toggle = not self.fire_toggle
         offset_y = 50 if self.fire_toggle else -50
-        return Projectile((self.rect.centerx, self.rect.centery), self.radians, 0, offset_y, (0, 0, 255))
+        self.projectiles.append(Projectile((self.rect.centerx, self.rect.centery), self.radians, 0, offset_y, (255, 0, 0)))
+
+
+class DeathStar(Spaceship):
+    def __init__(self, position, energy):
+        super().__init__(position, 0, src.settings.DEATHSTAR_SPRITE, src.settings.TIE_SOUND)
+        self.energy = energy
+
+    def draw(self, screen):
+        screen.blit(self.rotated, self.rect)
+
+        if 0 < self.energy < 30:
+            pygame.draw.circle(screen, (0, 255, 0), (self.rect.centerx + 70, self.rect.centery - 80), self.energy)
+        elif self.energy >= 30 and self.energy // 2 == 0:
+            pygame.draw.circle(screen, (0, 255, 0), (self.rect.centerx + 70, self.rect.centery - 80), 30)

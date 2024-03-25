@@ -23,7 +23,7 @@ class IntroScene(Scene):
         self.text_color = (255, 255, 0)  # Color amarillo
 
         # Texto de la intro
-        intro_text = """Hace mucho tiempo, en una galaxia muy, muy lejana...
+        self.intro_text = """Hace mucho tiempo, en una galaxia muy, muy lejana...
 
         LA SOMBRA DEL IMPERIO
         GUARDIANES DE LA PAZ
@@ -53,7 +53,7 @@ class IntroScene(Scene):
         de bláster."""
 
         # Dividir el texto en líneas
-        self.lines = intro_text.split('\n')
+        self.lines = self.intro_text.split('\n')
 
         # Configuración inicial para el desplazamiento del texto
         self.text_pos_y = HEIGHT

@@ -16,11 +16,9 @@ class LocalMPScene(Scene):
         self.bg_y = 0  # Posición inicial del fondo
         self.bgSpeed = 2  # Velocidad de desplazamiento del fondo
         self.player1 = TieFighter((100, 100), 180)
-        self.player1_projectiles = []
         pygame.mixer.set_num_channels(20)
         pygame.mixer.music.load('../assets/music/game_song.ogg')
         pygame.mixer.music.play(-1)
-        self.player2_projectiles = []
         self.player2 = XWing((WIDTH - 100, HEIGHT - 200), 0)
 
     def handle_events(self):
@@ -74,45 +72,30 @@ class LocalMPScene(Scene):
             self.done = True
 
         # Movimiento de los jugadores
-        self.player1.move_forward()
-        self.player2.move_forward()
+        self.player1.update()
+        self.player2.update()
 
+        # Comprobación de colisiones
+        self.check_hit()
+
+    def draw(self):
+        self.screen.blit(self.background, (0, 0))
+        self.player1.draw(self.screen)
+        self.player2.draw(self.screen)
+
+    def check_hit(self):
+        for projectile in self.player1.projectiles:
+            if check_collision(projectile.hitbox, self.player2.rect):
+                self.player2.start_hit_animation()
+                self.player1.projectiles.remove(projectile)
+                break
+        for projectile in self.player2.projectiles:
+            if check_collision(projectile.hitbox, self.player1.rect):
+                self.player1.start_hit_animation()
+                self.player2.projectiles.remove(projectile)
+                break
         if check_collision(self.player1.rect, self.player2.rect):
             # TODO: Implementar colisión entre naves espaciales
             # self.player1.start_hit_animation()
             # self.player2.start_hit_animation()
             pass
-
-        # Actualizar la posición de los proyectiles
-        for projectile in self.player1_projectiles:
-            projectile.update()
-            if (check_collision(projectile.hitbox1, self.player2.rect) or
-                    check_collision(projectile.hitbox2, self.player2.rect)):
-                # Si el proyectil colisiona con la nave del jugador 2,
-                # se elimina el proyectil y se inicia la animación de impacto
-                self.player1_projectiles.remove(projectile)
-                self.player2.start_hit_animation()
-            if projectile.y < 0 or projectile.y > HEIGHT or projectile.x < 0 or projectile.x > WIDTH:
-                self.player1_projectiles.remove(projectile)
-
-        for projectile in self.player2_projectiles:
-            projectile.update()
-            if (check_collision(projectile.hitbox1, self.player1.rect) or
-                    check_collision(projectile.hitbox2, self.player1.rect)):
-                self.player2_projectiles.remove(projectile)
-                self.player1.start_hit_animation()
-            if projectile.y < 0 or projectile.y > HEIGHT or projectile.x < 0 or projectile.x > WIDTH:
-                self.player2_projectiles.remove(projectile)
-
-    def draw(self):
-        ''' Deprecated, antes iba a ser un juego de scroll vertical
-        self.screen.blit(self.background, (0, self.bg_y - HEIGHT))
-        self.screen.blit(self.background, (0, self.bg_y))'''
-        self.screen.blit(self.background, (0, 0))
-        self.player1.draw(self.screen)
-        self.player2.draw(self.screen)
-        for projectile in self.player1_projectiles:
-            projectile.draw(self.screen)
-
-        for projectile in self.player2_projectiles:
-            projectile.draw(self.screen)
