@@ -32,10 +32,13 @@ class Winner(Scene):
                 sys.exit()
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
+                    pygame.mixer.Sound(MENU_SOUND).play()
                     self.current_option = (self.current_option - 1) % len(self.options)
                 elif event.key == pygame.K_DOWN:
+                    pygame.mixer.Sound(MENU_SOUND).play()
                     self.current_option = (self.current_option + 1) % len(self.options)
                 elif event.key == pygame.K_RETURN:
+                    pygame.mixer.Sound(MENU_SOUND).play()
                     self.option_selected()
 
     def draw(self):
