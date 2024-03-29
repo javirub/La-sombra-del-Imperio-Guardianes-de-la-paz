@@ -46,7 +46,7 @@ class DeathStar(Spaceship):
 
     def play_video(self):
         clip = VideoFileClip(DEATHSTAR_SHOOT_VIDEO)
-        clip.preview()
+        clip.preview(fullscreen=True)
         clip.close()
 
 

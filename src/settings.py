@@ -23,9 +23,11 @@ DEATHSTAR_SPRITE = os.path.join(BASE_DIR, '../assets/images/spaceships/deathstar
 EARTH_PLANET_SPRITE = os.path.join(BASE_DIR, '../assets/images/other/earth.png')
 TESLA_ROADSTER_SPRITE = os.path.join(BASE_DIR, '../assets/images/spaceships/tesla_roadster_space.png')
 ELON_MUSK_SPRITE = os.path.join(BASE_DIR, '../assets/images/characters/elon_musk.png')
+LAUGHING_MUSK_SPRITE = os.path.join(BASE_DIR, '../assets/images/characters/laughing_musk.png')
 DARTH_VADER_SPRITE = os.path.join(BASE_DIR, '../assets/images/characters/darth_vader.png')
 ARCADE_TIE_SPRITE = os.path.join(BASE_DIR, '../assets/images/spaceships/level 2/tie.png')
 ARCADE_TESLA_SPRITE = os.path.join(BASE_DIR, '../assets/images/spaceships/level 2/tesla_spaceship.png')
+CADENCE_POWERUP_SPRITE = os.path.join(BASE_DIR, '../assets/images/powerups/cadence.png')
 
 # Sounds & songs
 TIE_SOUND = os.path.join(BASE_DIR, '../assets/sounds/tieblast.ogg')

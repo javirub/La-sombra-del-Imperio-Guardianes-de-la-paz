@@ -37,14 +37,11 @@ def get_scene_by_name(scene_name, screen):
 def main():
     # Initialize the game
     pygame.init()
-    # Get the size of the screen
-    info_object = pygame.display.Info()
-    screen_width, screen_height = info_object.current_w, info_object.current_h
-    # Set up the window
-    if screen_width == WIDTH and screen_height == HEIGHT:
-        screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
-    else:
-        screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    # Set up the screen on full screen mode, changing the resolution to 1920x1080
+    screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
+    # Hide the cursor
+    pygame.mouse.set_visible(False)
+
     # Set up the current scene
     current_scene = MenuScene(screen)
 

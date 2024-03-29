@@ -10,10 +10,6 @@ import pygame
 
 
 class DeathstarScene(Scene):
-    '''En este nivel tendremos que cargar energia a la estrella de la muerte para destruír la Tierra,
-    pero ocurre un giro inesperado, golpeamos el Tesla Roadster de Elon Musk, advirtiendo a los humanos
-    de la amenaza inminente. La Tierra se prepara para la batalla final.'''
-
     def __init__(self, screen):
         super().__init__(screen)
         self.story_stage = None
@@ -28,7 +24,6 @@ class DeathstarScene(Scene):
         self.dialogue_box = DialogueBox(screen, FONT_PATH, 24)
         self.show_dialogue = False
         self.font = pygame.font.Font(None, 40)
-        self.hasResized = False
 
     def draw(self):
         self.screen.blit(self.background, (0, 0))
@@ -59,16 +54,6 @@ class DeathstarScene(Scene):
         self.deathstar.update()
         self.tesla.update()
         if self.deathstar.hasShoot:
-            if not self.hasResized:
-                # Get the size of the screen
-                info_object = pygame.display.Info()
-                screen_width, screen_height = info_object.current_w, info_object.current_h
-                # Set up the window
-                if screen_width == WIDTH and screen_height == HEIGHT:
-                    self.screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
-                else:
-                    self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
-                self.hasResized = True
             self.tesla.speed = 8
             self.tesla.radians += 0.02
         if not self.show_dialogue:
@@ -102,6 +87,7 @@ class DeathstarScene(Scene):
                 "Elon Musk: Debemos unirnos para enfrentar esta amenaza."
             ])
         if self.dialogue_box.finished and self.story_stage == 3:
+            # Esto es para que no se muestre el mensaje de dialogo vacio mientras se carga el siguiente nivel
+            self.show_dialogue = False
             self.next_scene = "intro2"
             self.done = True
-

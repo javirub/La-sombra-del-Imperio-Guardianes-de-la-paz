@@ -89,9 +89,8 @@ class ArcadeSpaceship:
 class Tie(ArcadeSpaceship):
     def __init__(self, position):
         image = pygame.image.load(ARCADE_TIE_SPRITE).convert_alpha()
-        super().__init__(position, image, TIE_SOUND)
+        super().__init__(position, image, TIE_FUNNY_SOUND)
         self.life = 3
-
 
     def create_projectile(self):
         self.projectiles.append(PlayerProjectile((self.rect.centerx, self.rect.y), 25))
@@ -101,8 +100,6 @@ class TeslaRoadster(ArcadeSpaceship):
     def __init__(self, position, image_path):
         super().__init__(position, image_path, XWING_SOUND)
 
-
     def create_projectile(self):
         self.projectiles.append(EnemyProjectile((self.rect.centerx, self.rect.y), 0, 0))
         self.shooting = False
-
