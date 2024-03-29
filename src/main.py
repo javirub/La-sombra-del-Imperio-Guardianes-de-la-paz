@@ -5,9 +5,10 @@ from scenes.level_1.intro import IntroScene
 from scenes.level_1.deathstar import DeathstarScene
 from scenes.localMP import LocalMPScene
 from scenes.winner import RebelWinner, ImperiumWinner
-from scenes.inputcode import InputCode
+from scenes.inputcode import InputCode  
 from scenes.level_2.arcadedon import Arcadedon
 from scenes.level_2.intro import IntroScene2
+
 
 def get_scene_by_name(scene_name, screen):
     if scene_name == "menu":
@@ -35,8 +36,14 @@ def get_scene_by_name(scene_name, screen):
 def main():
     # Initialize the game
     pygame.init()
+    # Get the size of the screen
+    info_object = pygame.display.Info()
+    screen_width, screen_height = info_object.current_w, info_object.current_h
     # Set up the window
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    if screen_width == WIDTH and screen_height == HEIGHT:
+        screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
+    else:
+        screen = pygame.display.set_mode((WIDTH, HEIGHT))
     # Set up the current scene
     current_scene = MenuScene(screen)
 

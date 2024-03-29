@@ -1,6 +1,6 @@
 import pygame
-from src.settings import *
-from src.scenes.scene import Scene
+from settings import *
+from scenes.scene import Scene
 import sys
 
 

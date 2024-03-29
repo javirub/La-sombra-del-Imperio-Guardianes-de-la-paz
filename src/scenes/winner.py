@@ -1,6 +1,6 @@
 import sys
-from src.settings import *
-from src.utils.collision import *
+from settings import *
+from utils.collision import *
 from .scene import Scene
 
 

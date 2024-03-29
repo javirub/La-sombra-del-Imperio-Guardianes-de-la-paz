@@ -1,7 +1,7 @@
 import pygame
-from src.utils.sprites import load_sprite_sheet
-from src.settings import *
-from src.game_objects.level_2.projectiles import *
+from utils.sprites import load_sprite_sheet
+from settings import *
+from game_objects.level_2.projectiles import *
 
 
 class Deathstar:

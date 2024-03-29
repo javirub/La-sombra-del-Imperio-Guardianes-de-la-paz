@@ -2,10 +2,9 @@ import math
 
 import pygame.draw
 
-import src.settings
-from src.settings import *
-from src.utils.sprites import *
-from src.game_objects.projectile import *
+from settings import *
+from utils.sprites import *
+from game_objects.projectile import *
 from moviepy.editor import VideoFileClip
 
 
@@ -118,7 +117,7 @@ class Spaceship:  # Clase padre de las naves espaciales
 
 class TieFighter(Spaceship):
     def __init__(self, position, rotation):
-        super().__init__(position, rotation, src.settings.TIE_SPRITE, src.settings.TIE_FUNNY_SOUND)
+        super().__init__(position, rotation, TIE_SPRITE, TIE_FUNNY_SOUND)
 
     def create_projectile(self):
         self.projectiles.append(Projectile((self.rect.centerx, self.rect.centery), self.radians, 0, 10, (0, 255, 0)))
@@ -127,7 +126,7 @@ class TieFighter(Spaceship):
 
 class XWing(Spaceship):
     def __init__(self, position, rotation):
-        super().__init__(position, rotation, src.settings.XWING_SPRITE, src.settings.TIE_FUNNY_SOUND)
+        super().__init__(position, rotation, XWING_SPRITE, TIE_FUNNY_SOUND)
         self.fire_toggle = False
 
     def create_projectile(self):

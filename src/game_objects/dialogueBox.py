@@ -1,5 +1,5 @@
 import pygame
-from src.settings import *
+from settings import *
 
 
 class DialogueBox:
