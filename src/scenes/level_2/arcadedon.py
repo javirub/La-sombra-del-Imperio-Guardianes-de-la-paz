@@ -33,8 +33,8 @@ class Arcadedon(Scene):
         self.font = pygame.font.Font(None, 40)
         self.story_stage = 0
 
-
     def update(self):
+        # Game actions
         self.player.update()
         for enemy in self.enemies:
             if enemy.activated:
@@ -42,10 +42,14 @@ class Arcadedon(Scene):
         self.check_collisions()
         self.enemy_shoot()
         self.enemy_movement()
+
+        # Spawn enemies every 500ms
         if pygame.time.get_ticks() - self.last_time_spawn > 500 and self.enemy_spawn >= 0:
             self.enemy_spawn -= 1
             self.enemies[self.enemy_spawn].activated = True
             self.last_time_spawn = pygame.time.get_ticks()
+
+        # Story dialogue
         if self.show_dialogue and self.story_stage == 0:
             self.story_stage = 1
             self.dialogue_box.add_dialogue([
@@ -89,9 +93,11 @@ class Arcadedon(Scene):
             self.dialogue_box.current_speaker = 'darth_vader'
             self.dialogue_box.add_dialogue([
                 "¿Osas reirte del general Vader?",
-                "Tus burlas no quedarán impunes, la próxima vez no habrá piedad."
+                "Bueno, no importa, pronto la Estrella de la Muerte volverá a tener energia,",
+                "Y entonces, vuestras burlas se convertirán en polvo junto con vuestros cuerpos."
             ])
         elif self.dialogue_box.finished and self.story_stage == 6:
+            self.show_dialogue = False
             self.next_scene = "intro3"
             self.done = True
 
@@ -99,10 +105,13 @@ class Arcadedon(Scene):
         self.screen.blit(self.background, (0, 0))
         self.deathstar.draw(self.screen)
         self.player.draw(self.screen)
+
         for enemy in self.enemies:
             if enemy.activated:
                 enemy.draw(self.screen)
+
         self.screen.blit(self.earth, (WIDTH - 200, -100))
+
         if self.show_dialogue:
             self.dialogue_box.draw(self.screen)
 
@@ -112,8 +121,9 @@ class Arcadedon(Scene):
                 pygame.quit()
                 sys.exit()
 
-            # Movimiento nave espacial teclado
+            # Player movement and shooting, dialogue handling
             if event.type == pygame.KEYDOWN:
+                # Uses booleans to avoid the delay in the movement caused by the key repetition
                 if event.key == pygame.K_LEFT or event.key == pygame.K_a:
                     self.player.moving_left = True
                 elif event.key == pygame.K_RIGHT or event.key == pygame.K_d:
