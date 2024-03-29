@@ -28,6 +28,7 @@ class DeathstarScene(Scene):
         self.dialogue_box = DialogueBox(screen, FONT_PATH, 24)
         self.show_dialogue = False
         self.font = pygame.font.Font(None, 40)
+        self.hasResized = False
 
     def draw(self):
         self.screen.blit(self.background, (0, 0))
@@ -58,14 +59,16 @@ class DeathstarScene(Scene):
         self.deathstar.update()
         self.tesla.update()
         if self.deathstar.hasShoot:
-            # Get the size of the screen
-            info_object = pygame.display.Info()
-            screen_width, screen_height = info_object.current_w, info_object.current_h
-            # Set up the window
-            if screen_width == WIDTH and screen_height == HEIGHT:
-                self.screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
-            else:
-                self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+            if not self.hasResized:
+                # Get the size of the screen
+                info_object = pygame.display.Info()
+                screen_width, screen_height = info_object.current_w, info_object.current_h
+                # Set up the window
+                if screen_width == WIDTH and screen_height == HEIGHT:
+                    self.screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
+                else:
+                    self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+                self.hasResized = True
             self.tesla.speed = 8
             self.tesla.radians += 0.02
         if not self.show_dialogue:
