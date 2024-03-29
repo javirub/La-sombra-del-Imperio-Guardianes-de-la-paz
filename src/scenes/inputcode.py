@@ -7,7 +7,7 @@ import sys
 class InputCode(Scene):
     def __init__(self, screen):
         super().__init__(screen)
-        self.font = pygame.font.Font(None, 50)  # Define la fuente y tamaño del texto
+        self.font = pygame.font.Font(FONT_PATH, 40)  # Define la fuente y tamaño del texto
         self.input_text = ''  # Texto que se va ingresando
         self.next_scene = None  # La escena a la que se navegará
         self.text_box_rect = pygame.Rect(0, 0, 600, 50)
@@ -48,5 +48,7 @@ class InputCode(Scene):
             return "ImperiumWinner"
         elif code == "ElonMusk":
             return "Deathstar"
+        elif code == "Arcadedon":
+            return "Arcadedon"
         else:
             return "menu"  # Si la contraseña no coincide, vuelve al menú

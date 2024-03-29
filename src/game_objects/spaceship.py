@@ -6,6 +6,7 @@ import src.settings
 from src.settings import *
 from src.utils.sprites import *
 from src.game_objects.projectile import *
+from moviepy.editor import VideoFileClip
 
 
 class Spaceship:  # Clase padre de las naves espaciales
@@ -32,7 +33,7 @@ class Spaceship:  # Clase padre de las naves espaciales
     def start_hit_animation(self):
         self.animating = True
         self.current_sprite_index = 0
-        pygame.mixer.Sound(EXPLOSION_SOUND).play()
+        pygame.mixer.Sound(EXPLOSION_FUNNY_SOUND).play()
         self.life -= 10
 
     def draw(self, screen):
@@ -117,7 +118,7 @@ class Spaceship:  # Clase padre de las naves espaciales
 
 class TieFighter(Spaceship):
     def __init__(self, position, rotation):
-        super().__init__(position, rotation, src.settings.TIE_SPRITE, src.settings.TIE_SOUND)
+        super().__init__(position, rotation, src.settings.TIE_SPRITE, src.settings.TIE_FUNNY_SOUND)
 
     def create_projectile(self):
         self.projectiles.append(Projectile((self.rect.centerx, self.rect.centery), self.radians, 0, 10, (0, 255, 0)))
@@ -126,24 +127,12 @@ class TieFighter(Spaceship):
 
 class XWing(Spaceship):
     def __init__(self, position, rotation):
-        super().__init__(position, rotation, src.settings.XWING_SPRITE, src.settings.XWING_SOUND)
+        super().__init__(position, rotation, src.settings.XWING_SPRITE, src.settings.TIE_FUNNY_SOUND)
         self.fire_toggle = False
 
     def create_projectile(self):
         self.fire_toggle = not self.fire_toggle
         offset_y = 50 if self.fire_toggle else -50
-        self.projectiles.append(Projectile((self.rect.centerx, self.rect.centery), self.radians, 0, offset_y, (255, 0, 0)))
+        self.projectiles.append(
+            Projectile((self.rect.centerx, self.rect.centery), self.radians, 0, offset_y, (255, 0, 0)))
 
-
-class DeathStar(Spaceship):
-    def __init__(self, position, energy):
-        super().__init__(position, 0, src.settings.DEATHSTAR_SPRITE, src.settings.TIE_SOUND)
-        self.energy = energy
-
-    def draw(self, screen):
-        screen.blit(self.rotated, self.rect)
-
-        if 0 < self.energy < 30:
-            pygame.draw.circle(screen, (0, 255, 0), (self.rect.centerx + 70, self.rect.centery - 80), self.energy)
-        elif self.energy >= 30 and self.energy // 2 == 0:
-            pygame.draw.circle(screen, (0, 255, 0), (self.rect.centerx + 70, self.rect.centery - 80), 30)

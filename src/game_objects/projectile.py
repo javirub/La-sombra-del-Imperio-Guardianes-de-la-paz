@@ -37,3 +37,6 @@ class Projectile:
         # Dibuja el proyectil
         pygame.draw.line(screen, self.colour, (start_x, start_y), (end_x, end_y),
                          self.width)  # Dibuja una línea verde
+
+
+

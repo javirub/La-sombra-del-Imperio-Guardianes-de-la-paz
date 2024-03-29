@@ -1,21 +1,23 @@
 import pygame
 from settings import WIDTH, HEIGHT, ICON_PATH
-from scenes.intro import IntroScene
 from scenes.menu import MenuScene
-from scenes.game import GameScene
+from scenes.level_1.intro import IntroScene
+from scenes.level_1.deathstar import DeathstarScene
 from scenes.localMP import LocalMPScene
 from scenes.winner import RebelWinner, ImperiumWinner
 from scenes.inputcode import InputCode
-from scenes.level_1.deathstar import DeathstarScene
-
+from scenes.level_2.arcadedon import Arcadedon
+from scenes.level_2.intro import IntroScene2
 
 def get_scene_by_name(scene_name, screen):
     if scene_name == "menu":
         return MenuScene(screen)
-    elif scene_name == "game":
-        return GameScene(screen)
     elif scene_name == "intro":
         return IntroScene(screen)
+    elif scene_name == "intro2":
+        return IntroScene2(screen)
+    elif scene_name == "Deathstar":
+        return DeathstarScene(screen)
     elif scene_name == "localMP":
         return LocalMPScene(screen)
     elif scene_name == "RebelWinner":
@@ -24,9 +26,8 @@ def get_scene_by_name(scene_name, screen):
         return ImperiumWinner(screen)
     elif scene_name == "inputCode":
         return InputCode(screen)
-    elif scene_name == "Deathstar":
-        return DeathstarScene(screen)
-    # Añade más escenas aquí según sea necesario
+    elif scene_name == "Arcadedon":
+        return Arcadedon(screen)
     else:
         return MenuScene(screen)
 
