@@ -21,6 +21,7 @@ class Arcadedon(Scene):
         self.enemy_spawn = 50
         self.last_time_spawn = pygame.time.get_ticks()
         self.TESLA_SPRITE = pygame.image.load(ARCADE_TESLA_SPRITE).convert_alpha()  # This way only one time is loaded
+        # Sorry for preloading the enemies, but it's necessary to avoid lag, not asynchrony in pygame
         self.enemies = [TeslaRoadster((WIDTH - 220, 100), self.TESLA_SPRITE) for _ in range(50)]
         self.earth = pygame.image.load(EARTH_PLANET_SPRITE).convert_alpha()
 
