@@ -43,6 +43,7 @@ IMPERIUM_WINNER_SONG_PATH = os.path.join(BASE_DIR, '../assets/music/menu_song.og
 REBEL_WINNER_SONG_PATH = os.path.join(BASE_DIR, '../assets/music/intro_song.ogg')
 EPIC_SONG_PATH = os.path.join(BASE_DIR, '../assets/music/O Fortuna.ogg')
 DEATHSTAR_SOUND = os.path.join(BASE_DIR, '../assets/sounds/deathstarShoot.ogg')
+MENU_SOUND = os.path.join(BASE_DIR, '../assets/sounds/menu_sound.wav')
 
 # Narrator
 LEVEL1_NARRATOR = os.path.join(BASE_DIR, '../assets/sounds/narrator/level1.ogg')
