@@ -1,11 +1,11 @@
 import sys
 
-import src.settings
-from src.game_objects.projectile import *
-from src.settings import *
-from src.game_objects.spaceship import TieFighter, XWing
-from src.utils.collision import *
-from src.scenes.scene import Scene
+
+from game_objects.projectile import *
+from settings import *
+from game_objects.spaceship import TieFighter, XWing
+from utils.collision import *
+from scenes.scene import Scene
 
 
 class LocalMPScene(Scene):
@@ -17,7 +17,7 @@ class LocalMPScene(Scene):
         self.bgSpeed = 2  # Velocidad de desplazamiento del fondo
         self.player1 = TieFighter((100, 100), 180)
         pygame.mixer.set_num_channels(20)
-        pygame.mixer.music.load('../assets/music/game_song.ogg')
+        pygame.mixer.music.load(GAME_SONG_PATH)
         pygame.mixer.music.play(-1)
         self.player2 = XWing((WIDTH - 100, HEIGHT - 200), 0)
 

@@ -1,5 +1,5 @@
 import pygame
-import src.settings
+from settings import *
 import sys
 
 
@@ -15,7 +15,7 @@ class Scene:
             self.update()
             self.draw()
             pygame.display.flip()
-            pygame.time.Clock().tick(src.settings.FPS)
+            pygame.time.Clock().tick(FPS)
         pygame.mixer.music.stop()
 
     def handle_events(self):

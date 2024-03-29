@@ -3,8 +3,8 @@ import threading
 
 from ..scene import Scene
 import sys
-from src.game_objects.level_2.spaceships import *
-from src.utils.collision import *
+from game_objects.level_2.spaceships import *
+from utils.collision import *
 
 
 class Arcadedon(Scene):

@@ -5,7 +5,7 @@ from scenes.level_1.intro import IntroScene
 from scenes.level_1.deathstar import DeathstarScene
 from scenes.localMP import LocalMPScene
 from scenes.winner import RebelWinner, ImperiumWinner
-from scenes.inputcode import InputCode
+from scenes.inputcode import InputCode  
 from scenes.level_2.arcadedon import Arcadedon
 from scenes.level_2.intro import IntroScene2
 
