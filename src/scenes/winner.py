@@ -2,6 +2,7 @@ import sys
 from settings import *
 from utils.collision import *
 from .scene import Scene
+import pygame
 
 
 class Winner(Scene):

@@ -1,13 +1,14 @@
 import pygame
-from settings import WIDTH, HEIGHT, ICON_PATH
-from scenes.menu import MenuScene
-from scenes.level_1.intro import IntroScene
+
+from scenes.inputcode import InputCode
 from scenes.level_1.deathstar import DeathstarScene
-from scenes.localMP import LocalMPScene
-from scenes.winner import RebelWinner, ImperiumWinner
-from scenes.inputcode import InputCode  
+from scenes.level_1.intro import IntroScene
 from scenes.level_2.arcadedon import Arcadedon
 from scenes.level_2.intro import IntroScene2
+from scenes.localMP import LocalMPScene
+from scenes.menu import MenuScene
+from scenes.winner import RebelWinner, ImperiumWinner
+from settings import *
 
 
 def get_scene_by_name(scene_name, screen):
