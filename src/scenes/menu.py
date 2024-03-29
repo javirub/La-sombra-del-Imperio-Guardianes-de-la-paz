@@ -13,7 +13,7 @@ class MenuScene(Scene):
                         "Salir"]
         self.font = pygame.font.Font(None, 36)
         self.current_option = 0
-        self.background = pygame.image.load(BACKGROUND_PATH).convert_alpha()
+        self.background = pygame.image.load(BACKGROUND_MENU).convert_alpha()
         pygame.mixer.music.load(MENU_SONG_PATH)
         pygame.mixer.music.play(-1)
 
