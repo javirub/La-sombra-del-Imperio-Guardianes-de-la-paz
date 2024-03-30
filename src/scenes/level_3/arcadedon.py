@@ -7,7 +7,7 @@ from utils.collision import *
 from ..scene import Scene
 
 
-class Arcadedon(Scene):
+class Arcadedon_with_steroids(Scene):
     def __init__(self, screen):
         super().__init__(screen)
         self.active_enemies = None
@@ -32,6 +32,8 @@ class Arcadedon(Scene):
         self.show_dialogue = False
         self.font = pygame.font.Font(None, 40)
         self.story_stage = 0
+        # ---------------------------------------------------------------------------------------------------
+        self.powerup = []
 
     def update(self):
         # Game actions

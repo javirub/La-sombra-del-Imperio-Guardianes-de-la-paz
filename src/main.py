@@ -8,6 +8,7 @@ from scenes.level_2.intro import IntroScene2
 from scenes.localMP import LocalMPScene
 from scenes.menu import MenuScene
 from scenes.winner import RebelWinner, ImperiumWinner
+from scenes.gameover import GameOver
 from settings import *
 
 
@@ -30,6 +31,8 @@ def get_scene_by_name(scene_name, screen):
         return InputCode(screen)
     elif scene_name == "Arcadedon":
         return Arcadedon(screen)
+    elif scene_name == "Gameover":
+        return GameOver(screen)
     else:
         return MenuScene(screen)
 
