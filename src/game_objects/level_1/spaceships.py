@@ -9,7 +9,7 @@ from ..spaceship import Spaceship
 
 
 class DeathStar(Spaceship):
-    def __init__(self, position: object, energy: object) -> object:
+    def __init__(self, position, energy):
         super().__init__(position, 0, DEATHSTAR_SPRITE, DEATHSTAR_SOUND)
         self.energy = energy
         self.projectiles = []
