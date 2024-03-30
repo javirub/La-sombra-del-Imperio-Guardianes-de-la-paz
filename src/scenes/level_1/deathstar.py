@@ -1,12 +1,14 @@
 # Nivel: Estrella de la muerte
-from scenes.scene import Scene
-from settings import *
 import sys
 import time
-from game_objects.level_1.spaceships import DeathStar, TeslaRoadster
-from utils.collision import *
-from game_objects.dialogueBox import DialogueBox
+
 import pygame
+
+from game_objects.dialogueBox import DialogueBox
+from game_objects.level_1.spaceships import DeathStar, TeslaRoadster
+from scenes.scene import Scene
+from settings import *
+from utils.collision import *
 
 
 class DeathstarScene(Scene):

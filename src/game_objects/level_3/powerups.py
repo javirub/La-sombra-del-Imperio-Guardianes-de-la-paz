@@ -1,5 +1,6 @@
 import pygame
-from settings import * 
+
+from settings import *
 
 
 class Powerup:
@@ -21,9 +22,6 @@ class CadencePowerup(Powerup):
     def __init__(self, position):
         super().__init__(position, CADENCE_POWERUP_SPRITE)
 
-
-
 # TODO: class SpeedPowerup:
 
 # TODO: class HealthPowerup:
-

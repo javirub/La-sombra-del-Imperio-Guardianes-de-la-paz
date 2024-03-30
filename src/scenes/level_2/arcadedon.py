@@ -1,10 +1,10 @@
 import random
 import sys
-from ..scene import Scene
 
-from game_objects.level_2.spaceships import *
 from game_objects.dialogueBox import DialogueBox
+from game_objects.level_2.spaceships import *
 from utils.collision import *
+from ..scene import Scene
 
 
 class Arcadedon(Scene):

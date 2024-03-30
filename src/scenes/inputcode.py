@@ -1,7 +1,9 @@
-import pygame
-from settings import *
-from scenes.scene import Scene
 import sys
+
+import pygame
+
+from scenes.scene import Scene
+from settings import *
 
 
 class InputCode(Scene):

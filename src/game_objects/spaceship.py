@@ -1,11 +1,8 @@
-import math
-
 import pygame.draw
 
+from game_objects.projectile import *
 from settings import *
 from utils.sprites import *
-from game_objects.projectile import *
-from moviepy.editor import VideoFileClip
 
 
 class Spaceship:  # Clase padre de las naves espaciales
@@ -134,4 +131,3 @@ class XWing(Spaceship):
         offset_y = 50 if self.fire_toggle else -50
         self.projectiles.append(
             Projectile((self.rect.centerx, self.rect.centery), self.radians, 0, offset_y, (255, 0, 0)))
-

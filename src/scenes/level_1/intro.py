@@ -1,7 +1,9 @@
 # intro.py
 
-import pygame
 import sys
+
+import pygame
+
 from settings import *
 from ..scene import Scene  # Importa la clase Scene desde el módulo scene.py
 

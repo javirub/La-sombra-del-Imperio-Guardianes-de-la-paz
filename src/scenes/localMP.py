@@ -1,11 +1,10 @@
 import sys
 
-
 from game_objects.projectile import *
-from settings import *
 from game_objects.spaceship import TieFighter, XWing
-from utils.collision import *
 from scenes.scene import Scene
+from settings import *
+from utils.collision import *
 
 
 class LocalMPScene(Scene):

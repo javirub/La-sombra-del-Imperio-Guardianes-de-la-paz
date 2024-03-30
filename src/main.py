@@ -47,8 +47,8 @@ def main():
 
     # Set up the window title, icon and background
     pygame.display.set_caption('La sombra del Imperio: Guardianes de la paz')
-    ICON = pygame.image.load(ICON_PATH)
-    pygame.display.set_icon(ICON)
+    icon = pygame.image.load(ICON_PATH)
+    pygame.display.set_icon(icon)
 
     # Run the game loop
     while True:

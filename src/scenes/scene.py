@@ -1,6 +1,8 @@
-import pygame
-from settings import *
 import sys
+
+import pygame
+
+from settings import *
 
 
 class Scene:

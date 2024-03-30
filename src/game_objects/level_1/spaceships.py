@@ -1,9 +1,11 @@
-from ..spaceship import Spaceship
-from settings import *
-from game_objects.level_1.projectiles import DeathStarProjectile
+import time
+
 import pygame
 from moviepy.editor import VideoFileClip
-import time
+
+from game_objects.level_1.projectiles import DeathStarProjectile
+from settings import *
+from ..spaceship import Spaceship
 
 
 class DeathStar(Spaceship):

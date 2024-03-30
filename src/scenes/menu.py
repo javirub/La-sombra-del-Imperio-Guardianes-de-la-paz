@@ -1,9 +1,11 @@
 # menu.py
 
-import pygame
 import sys
-from .scene import Scene
+
+import pygame
+
 from settings import *
+from .scene import Scene
 
 
 class MenuScene(Scene):

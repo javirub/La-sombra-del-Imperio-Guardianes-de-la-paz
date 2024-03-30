@@ -1,8 +1,9 @@
 import sys
-from settings import *
-from utils.collision import *
-from .scene import Scene
+
 import pygame
+
+from settings import *
+from .scene import Scene
 
 
 class Winner(Scene):
