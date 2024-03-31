@@ -103,27 +103,36 @@ class Arcadedon(Scene):
             for enemy in self.active_enemies:
                 if check_collision(projectile.hitbox, enemy.rect):
                     enemy.life -= 1
-                    if projectile:  # Avoids the error of removing a non-existent projectile from the list
+                    try:
                         self.player.projectiles.remove(projectile)
+                    except ValueError:
+                        pass  # If the projectile is already removed, ignore the exception
                     if enemy.life <= 0:
                         enemy.activated = False
         for enemy in self.active_enemies:
+            if check_collision(self.player.rect, enemy.rect):
+                self.player.start_hit_animation()
+                enemy.activated = False
             if check_collision(self.deathstar.rect, enemy.rect):
                 self.next_scene = "menu"
                 self.done = True
             for projectile in enemy.projectiles:
                 if check_collision(projectile.hitbox, self.player.rect):
                     self.player.start_hit_animation()
-                    enemy.projectiles.remove(projectile)
+                    try:
+                        enemy.projectiles.remove(projectile)
+                    except ValueError:
+                        pass
 
     def enemy_shoot(self):
-        random_enemy = random.choice(self.active_enemies)
-        current_time = pygame.time.get_ticks()
+        if self.active_enemies:
+            random_enemy = random.choice(self.active_enemies)
+            current_time = pygame.time.get_ticks()
 
-        if current_time - self.last_shoot_time > self.time_to_shoot:
-            self.last_shoot_time = current_time
-            random_enemy.shooting = True
-            self.time_to_shoot = random.randint(500, 4000)
+            if current_time - self.last_shoot_time > self.time_to_shoot:
+                self.last_shoot_time = current_time
+                random_enemy.shooting = True
+                self.time_to_shoot = random.randint(500, 4000)
 
     def enemy_movement(self):
         for enemy in self.active_enemies:
@@ -145,16 +154,20 @@ class Arcadedon(Scene):
         if not self.active_enemies and self.enemy_spawn <= 0:
             self.next_scene = "menu"
             self.show_dialogue = True
-
-        if self.player.life <= 0:
-            self.next_scene = "Gameover"
+        if self.player.life <= 0 and not self.player.animating:
+            self.next_scene = "menu"
             self.done = True
 
     def show_dialogues(self):
         if self.show_dialogue and self.story_stage == 0:
             self.story_stage = 1
+            if self.player.life == 0:
+                player_deaths = 1
+            else:
+                player_deaths = 0
+
             self.dialogue_box.add_dialogue([
-                "Vaya, eso ha sido fácil, 50 a 0."
+                f"Vaya, eso ha sido fácil, 50 a {player_deaths}."
             ])
         elif self.story_stage == 1 and self.dialogue_box.finished:
             self.story_stage = 2

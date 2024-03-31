@@ -32,7 +32,8 @@ class ArcadeSpaceship:
         self.activated = False
 
     def draw(self, screen):
-        screen.blit(self.image, self.rect)
+        if self.life > 0:
+            screen.blit(self.image, self.rect)
 
         if self.animating:
             self.current_sprite_index += 1
@@ -57,9 +58,10 @@ class ArcadeSpaceship:
             self.rect.x -= self.speed
 
     def update(self):
-        self.move_right()
-        self.move_left()
-        self.shoot(pygame.time.get_ticks())
+        if self.life > 0:
+            self.move_right()
+            self.move_left()
+            self.shoot(pygame.time.get_ticks())
         for projectile in self.projectiles:
             projectile.update()
             if projectile.y < 0 or projectile.y > HEIGHT:
@@ -89,6 +91,7 @@ class Tie(ArcadeSpaceship):
     def __init__(self, position, image_path):
         super().__init__(position, image_path, TIE_FUNNY_SOUND)
         self.life = 3
+        self.cadence = 50
 
     def create_projectile(self):
         self.projectiles.append(PlayerProjectile((self.rect.centerx, self.rect.y), 25))
