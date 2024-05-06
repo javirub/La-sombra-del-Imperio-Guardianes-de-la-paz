@@ -35,7 +35,7 @@ class EnemyProjectile:
         self.length = 2
         self.width = 1
         self.hitbox = pygame.Rect(self.x, self.y, self.length, self.width)
-        self.speed = 4
+        self.speed = 6
 
     def update(self):
         self.y += self.speed

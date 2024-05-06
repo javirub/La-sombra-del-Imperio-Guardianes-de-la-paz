@@ -8,7 +8,7 @@ from ..scene import Scene
 
 
 class Arcadedon(Scene):
-    def __init__(self, screen):
+    def __init__(self, screen, enemies=None):
         super().__init__(screen)
         self.active_enemies = None
         self.next_scene = "menu"
@@ -16,22 +16,36 @@ class Arcadedon(Scene):
         self.background = pygame.image.load(BACKGROUND_PATH).convert_alpha()
         self.earth = pygame.image.load(EARTH_PLANET_SPRITE).convert_alpha()
 
+        # Player
         self.deathstar = Deathstar((WIDTH / 2, HEIGHT + 100), 5)
-        self.time_to_shoot = random.randint(500, 4000)
         self.last_shoot_time = pygame.time.get_ticks()
-        self.enemy_spawn = 50
-        self.last_time_spawn = pygame.time.get_ticks()
         self.TIE_SPRITE = pygame.image.load(ARCADE_TIE_SPRITE).convert_alpha()
         self.player = Tie((WIDTH / 2, HEIGHT - 200), self.TIE_SPRITE)
-        self.TESLA_SPRITE = pygame.image.load(ARCADE_TESLA_SPRITE).convert_alpha()  # This way only one time is loaded
-        # Sorry for preloading the enemies, but it's necessary to avoid lag, not asynchrony in pygame
-        self.enemies = [TeslaRoadster((WIDTH - 220, 100), self.TESLA_SPRITE) for _ in range(50)]
 
+        # Dialogue
         self.dialogue_box = DialogueBox(screen, FONT_PATH, 24)
         self.dialogue_box.current_speaker = 'darth_vader'
         self.show_dialogue = False
         self.font = pygame.font.Font(None, 40)
         self.story_stage = 0
+
+        # Enemies
+        self.enemy_spawn = 50
+        self.TESLA_SPRITE = pygame.image.load(ARCADE_TESLA_SPRITE).convert_alpha()  # This way only one time is loaded
+        # Si hemos precargado los enemigos en la escena anterior, los cargamos, si no, los creamos
+        # Es necesario precargar ya que la creación de los enemigos es muy costosa y ralentiza el juego
+        if enemies is not None:
+            enemy_count = len(enemies)
+            if enemy_count >= self.enemy_spawn:
+                self.enemies = enemies
+            else:
+                self.enemies = enemies + [TeslaRoadster((WIDTH - 220, 100), self.TESLA_SPRITE)
+                                          for _ in range(self.enemy_spawn - enemy_count)]
+        else:
+            self.enemies = [TeslaRoadster((WIDTH - 220, 100), self.TESLA_SPRITE) for _ in range(self.enemy_spawn)]
+        self.enemy_projectiles = []  # This is necessary to avoid a bug in the game when the enemy dies
+        self.last_time_spawn = pygame.time.get_ticks()
+        self.time_to_shoot = random.randint(500, 4000)
 
     def update(self):
         # Game actions
@@ -55,7 +69,7 @@ class Arcadedon(Scene):
 
         for enemy in self.active_enemies:
             enemy.draw(self.screen)
-
+        # TODO: Enemy projectiles disappear when spaceship is destroyed
         self.screen.blit(self.earth, (WIDTH - 200, -100))
 
         if self.show_dialogue:
@@ -132,7 +146,8 @@ class Arcadedon(Scene):
             if current_time - self.last_shoot_time > self.time_to_shoot:
                 self.last_shoot_time = current_time
                 random_enemy.shooting = True
-                self.time_to_shoot = random.randint(500, 4000)
+                self.enemy_projectiles.append(random_enemy.create_projectile())
+                self.time_to_shoot = random.randint(500, 1500)
 
     def enemy_movement(self):
         for enemy in self.active_enemies:
@@ -155,7 +170,7 @@ class Arcadedon(Scene):
             self.next_scene = "menu"
             self.show_dialogue = True
         if self.player.life <= 0 and not self.player.animating:
-            self.next_scene = "menu"
+            self.next_scene = "Gameover"
             self.done = True
 
     def show_dialogues(self):

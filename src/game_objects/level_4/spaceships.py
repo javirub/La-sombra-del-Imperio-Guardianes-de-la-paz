@@ -1,7 +1,6 @@
-from game_objects.level_3.projectiles import *
+from game_objects.level_4.projectiles import *
 from settings import *
 from utils.sprites import load_sprite_sheet
-import random
 
 
 class Deathstar:
@@ -105,17 +104,6 @@ class TeslaRoadster(ArcadeSpaceship):
         self.shooting = False
 
     def create_powerup(self):
-        random_number = random.randint(0, 100)
-        if random_number in (0, 5):
-            # Cadence powerup
-            return 1, self.rect.center
-        elif random_number in (20, 25):
-            # Speed powerup
-            return 2, self.rect.center
-        elif random_number in (40, 45):
-            # Health powerup
-            return 3, self.rect.center
-        else:
-            return None
+
 
 # TODO: One more class for Stronk Spaceship, with higher life and different shooting cadence and higher drop rate

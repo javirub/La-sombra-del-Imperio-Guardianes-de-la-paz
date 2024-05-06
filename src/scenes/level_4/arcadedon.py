@@ -1,14 +1,15 @@
-import random
 import sys
+import random
 
 from game_objects.dialogueBox import DialogueBox
-from game_objects.level_2.spaceships import *
+from game_objects.level_4.spaceships import *
+from game_objects.level_4.powerups import *
 from utils.collision import *
-from ..scene import Scene
+from scenes.scene import Scene
 
 
 class Arcadedon_with_steroids(Scene):
-    def __init__(self, screen):
+    def __init__(self, screen, enemies=None):
         super().__init__(screen)
         self.active_enemies = None
         self.next_scene = "menu"
@@ -16,24 +17,36 @@ class Arcadedon_with_steroids(Scene):
         self.background = pygame.image.load(BACKGROUND_PATH).convert_alpha()
         self.earth = pygame.image.load(EARTH_PLANET_SPRITE).convert_alpha()
 
+        # Player
         self.deathstar = Deathstar((WIDTH / 2, HEIGHT + 100), 5)
-        self.time_to_shoot = random.randint(500, 4000)
         self.last_shoot_time = pygame.time.get_ticks()
-        self.enemy_spawn = 50
-        self.last_time_spawn = pygame.time.get_ticks()
         self.TIE_SPRITE = pygame.image.load(ARCADE_TIE_SPRITE).convert_alpha()
         self.player = Tie((WIDTH / 2, HEIGHT - 200), self.TIE_SPRITE)
-        self.TESLA_SPRITE = pygame.image.load(ARCADE_TESLA_SPRITE).convert_alpha()  # This way only one time is loaded
-        # Sorry for preloading the enemies, but it's necessary to avoid lag, not asynchrony in pygame
-        self.enemies = [TeslaRoadster((WIDTH - 220, 100), self.TESLA_SPRITE) for _ in range(50)]
 
+        # Dialogue
         self.dialogue_box = DialogueBox(screen, FONT_PATH, 24)
         self.dialogue_box.current_speaker = 'darth_vader'
         self.show_dialogue = False
         self.font = pygame.font.Font(None, 40)
         self.story_stage = 0
-        # ---------------------------------------------------------------------------------------------------
-        self.powerup = []
+
+        # Enemies
+        self.enemy_spawn = 50
+        self.TESLA_SPRITE = pygame.image.load(ARCADE_TESLA_SPRITE).convert_alpha()  # This way only one time is loaded
+        # Si hemos precargado los enemigos en la escena anterior, los cargamos, si no, los creamos
+        # Es necesario precargar ya que la creación de los enemigos es muy costosa y ralentiza el juego
+        if enemies is not None:
+            enemy_count = len(enemies)
+            if enemy_count >= self.enemy_spawn:
+                self.enemies = enemies
+            else:
+                self.enemies = enemies + [TeslaRoadster((WIDTH - 220, 100), self.TESLA_SPRITE)
+                                          for _ in range(self.enemy_spawn - enemy_count)]
+        else:
+            self.enemies = [TeslaRoadster((WIDTH - 220, 100), self.TESLA_SPRITE) for _ in range(self.enemy_spawn)]
+        self.enemy_projectiles = []  # This is necessary to avoid a bug in the game when the enemy dies
+        self.last_time_spawn = pygame.time.get_ticks()
+        self.time_to_shoot = random.randint(500, 4000)
 
     def update(self):
         # Game actions
@@ -57,7 +70,7 @@ class Arcadedon_with_steroids(Scene):
 
         for enemy in self.active_enemies:
             enemy.draw(self.screen)
-
+        # TODO: Enemy projectiles disappear when spaceship is destroyed
         self.screen.blit(self.earth, (WIDTH - 200, -100))
 
         if self.show_dialogue:
@@ -105,27 +118,37 @@ class Arcadedon_with_steroids(Scene):
             for enemy in self.active_enemies:
                 if check_collision(projectile.hitbox, enemy.rect):
                     enemy.life -= 1
-                    if projectile:  # Avoids the error of removing a non-existent projectile from the list
+                    try:
                         self.player.projectiles.remove(projectile)
+                    except ValueError:
+                        pass  # If the projectile is already removed, ignore the exception
                     if enemy.life <= 0:
                         enemy.activated = False
         for enemy in self.active_enemies:
+            if check_collision(self.player.rect, enemy.rect):
+                self.player.start_hit_animation()
+                enemy.activated = False
             if check_collision(self.deathstar.rect, enemy.rect):
                 self.next_scene = "menu"
                 self.done = True
             for projectile in enemy.projectiles:
                 if check_collision(projectile.hitbox, self.player.rect):
                     self.player.start_hit_animation()
-                    enemy.projectiles.remove(projectile)
+                    try:
+                        enemy.projectiles.remove(projectile)
+                    except ValueError:
+                        pass
 
     def enemy_shoot(self):
-        random_enemy = random.choice(self.active_enemies)
-        current_time = pygame.time.get_ticks()
+        if self.active_enemies:
+            random_enemy = random.choice(self.active_enemies)
+            current_time = pygame.time.get_ticks()
 
-        if current_time - self.last_shoot_time > self.time_to_shoot:
-            self.last_shoot_time = current_time
-            random_enemy.shooting = True
-            self.time_to_shoot = random.randint(500, 4000)
+            if current_time - self.last_shoot_time > self.time_to_shoot:
+                self.last_shoot_time = current_time
+                random_enemy.shooting = True
+                self.enemy_projectiles.append(random_enemy.create_projectile())
+                self.time_to_shoot = random.randint(500, 1500)
 
     def enemy_movement(self):
         for enemy in self.active_enemies:
@@ -147,8 +170,7 @@ class Arcadedon_with_steroids(Scene):
         if not self.active_enemies and self.enemy_spawn <= 0:
             self.next_scene = "menu"
             self.show_dialogue = True
-
-        if self.player.life <= 0:
+        if self.player.life <= 0 and not self.player.animating:
             self.next_scene = "Gameover"
             self.done = True
 
@@ -166,40 +188,17 @@ class Arcadedon_with_steroids(Scene):
                 "JAJAJA, ¿Pero que ha sido ese ruido?.",
                 "Era como si una persona estuviese diciendo PIU PIU PIU."
             ])
-        elif self.story_stage == 2 and self.dialogue_box.finished:
-            self.story_stage = 3
-            self.dialogue_box.finished = False
-            self.dialogue_box.current_speaker = 'darth_vader'
-            self.dialogue_box.add_dialogue([
-                "Quizás perdisteis mucho tiempo en desarrollar un ruido de disparo.",
-                "Mientras nosotros estuvimos desarrollando un improvisado caza TIE."
-            ])
-        elif self.story_stage == 3 and self.dialogue_box.finished:
-            self.story_stage = 4
-            self.dialogue_box.finished = False
-            self.dialogue_box.current_speaker = 'elon_musk'
-            self.dialogue_box.add_dialogue([
-                "Quizás tengas razón, pero no nos rendiremos tan facilmente.",
-                "Desarrollaremos un nuevo caza especial para esta ocasión,",
-                "Capaz de hacerte frente, esta vez no podrás contra nosotros."
-            ])
-        elif self.story_stage == 4 and self.dialogue_box.finished:
-            self.story_stage = 5
-            self.dialogue_box.finished = False
-            self.dialogue_box.current_speaker = 'laughing_musk'
-            self.dialogue_box.add_dialogue([
-                "Pero no hará PIU PIU."
-            ])
-        elif self.story_stage == 5 and self.dialogue_box.finished:
-            self.dialogue_box.finished = False
-            self.story_stage = 6
-            self.dialogue_box.current_speaker = 'darth_vader'
-            self.dialogue_box.add_dialogue([
-                "¿Osas reirte del general Vader?",
-                "Bueno, no importa, pronto la Estrella de la Muerte volverá a tener energia,",
-                "Y entonces, vuestras burlas se convertirán en polvo junto con vuestros cuerpos."
-            ])
-        elif self.dialogue_box.finished and self.story_stage == 6:
-            self.show_dialogue = False
-            self.next_scene = "intro3"
-            self.done = True
+
+    def check_powerup(self, enemy):
+        random_number = random.randint(0, 100)
+        if random_number in (0, 5):
+            # Cadence powerup
+            self.powerup.append(CadencePowerup(enemy.rect.center))
+        elif random_number in (20, 25):
+            # Speed powerup
+            self.powerup.append(SpeedPowerup(enemy.rect.center))
+        elif random_number in (40, 45):
+            # Health powerup
+            self.powerup.append(HealthPowerup(enemy.rect.center))
+        else:
+            return None

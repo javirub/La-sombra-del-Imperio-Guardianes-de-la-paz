@@ -1,4 +1,3 @@
-# Nivel: Estrella de la muerte
 import sys
 import time
 
@@ -11,7 +10,7 @@ from settings import *
 from utils.collision import *
 
 
-class DeathstarScene(Scene):
+class DeathstarScene2(Scene):
     def __init__(self, screen):
         super().__init__(screen)
         self.story_stage = None
@@ -22,7 +21,7 @@ class DeathstarScene(Scene):
         self.last_second = time.time()
         self.deathstar = DeathStar((WIDTH / 2 - 600, HEIGHT - 350), 0)
         self.earth = pygame.image.load(EARTH_PLANET_SPRITE).convert_alpha()
-        self.tesla = DeathstarSpaceship((WIDTH / 2 + 600, HEIGHT - 1200), TESLA_ROADSTER_SPRITE)
+        self.tesla = DeathstarSpaceship((WIDTH / 2 + 600, HEIGHT - 1200), SPY_SATELLITE_SPRITE)
         self.dialogue_box = DialogueBox(screen, FONT_PATH, 24)
         self.show_dialogue = False
         self.font = pygame.font.Font(None, 40)
@@ -66,29 +65,41 @@ class DeathstarScene(Scene):
                     self.tesla.start_hit_animation()
                     self.tesla.isDestroyed = True
                     self.show_dialogue = True
+                    self.dialogue_box.current_speaker = 'Kim Jong Ill'
                     self.story_stage = 1
                     self.dialogue_box.add_dialogue([
-                        "Elon Musk: ¿¡Quien ha atacado a mi Tesla Roadster!?"
+                        "¿Quien se atreve a atacar mi satelite espia?"
                     ])
         if self.dialogue_box.finished and self.story_stage == 1:
             self.story_stage = 2
             self.dialogue_box.finished = False
             self.dialogue_box.current_speaker = 'darth_vader'
             self.dialogue_box.add_dialogue([
-                "Darth Vader: ¿Que demonios hace un coche orbitando el planeta?"
+                "¿Por que razón estos humanos tienen llena de basura el espacio?",
+                "Tendremos que volver a esperar a que se enfrie la estrella de la muerte",
+                "para poder volver a disparar."
             ])
 
-        if self.dialogue_box.finished and self.story_stage == 2:
+        elif self.dialogue_box.finished and self.story_stage == 2:
             self.story_stage = 3
             self.dialogue_box.finished = False
-            self.dialogue_box.current_speaker = 'elon_musk'
+            self.dialogue_box.current_speaker = 'Kim Jong Ill'
             self.dialogue_box.add_dialogue([
-                "Elon Musk: Era una demostración de lo que el ser humano puede lograr.",
-                "Elon Musk: Toda mi vida he soñado con llegar a las estrellas.",
-                "Elon Musk: Pero ahora, la humanidad está en peligro.",
-                "Elon Musk: Debemos unirnos para enfrentar esta amenaza."
+                "¿Pretendes derrotar la tierra?",
+                "No te lo permitiré, solo yo puedo usar armas de destrucción masiva",
             ])
-        if self.dialogue_box.finished and self.story_stage == 3:
+
+        elif self.dialogue_box.finished and self.story_stage == 3:
+            # Esto es para que no se muestre el mensaje de dialogo vacio mientras se carga el siguiente nivel
+            self.dialogue_box.finished = False
+            self.story_stage = 4
+            self.dialogue_box.current_speaker = 'darth_vader'
+            self.dialogue_box.add_dialogue([
+                "¿Qué? ¿Quién eres tú?",
+                "No importa, también acabaré contigo."
+            ])
+
+        elif self.dialogue_box.finished and self.story_stage == 4:
             # Esto es para que no se muestre el mensaje de dialogo vacio mientras se carga el siguiente nivel
             self.show_dialogue = False
             self.next_scene = "intro2"

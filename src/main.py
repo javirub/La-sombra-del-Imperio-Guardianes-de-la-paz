@@ -5,6 +5,9 @@ from scenes.level_1.deathstar import DeathstarScene
 from scenes.level_1.intro import IntroScene
 from scenes.level_2.arcadedon import Arcadedon
 from scenes.level_2.intro import IntroScene2
+from scenes.level_3.deathstar import DeathstarScene2
+from scenes.level_4.intro import IntroScene3
+from scenes.level_4.arcadedon import Arcadedon_with_steroids
 from scenes.localMP import LocalMPScene
 from scenes.menu import MenuScene
 from scenes.winner import RebelWinner, ImperiumWinner
@@ -12,27 +15,36 @@ from scenes.gameover import GameOver
 from settings import *
 
 
-def get_scene_by_name(scene_name, screen):
+def get_scene_by_name(scene_name, screen, resources=None):
+    # Menu
     if scene_name == "menu":
         return MenuScene(screen)
+    elif scene_name == "inputCode":
+        return InputCode(screen)
+    # Story
     elif scene_name == "intro":
         return IntroScene(screen)
-    elif scene_name == "intro2":
-        return IntroScene2(screen)
     elif scene_name == "Deathstar":
         return DeathstarScene(screen)
+    elif scene_name == "intro2":
+        return IntroScene2(screen)
+    elif scene_name == "Arcadedon":
+        return Arcadedon(screen, resources)
+    elif scene_name == "Deathstar2":
+        return DeathstarScene2(screen)
+    elif scene_name == "intro3":
+        return IntroScene3(screen)
+    elif scene_name == "Arcadedon2":
+        return Arcadedon_with_steroids(screen, resources)
+    elif scene_name == "Gameover":
+        return GameOver(screen)
+    # Multiplayer
     elif scene_name == "localMP":
         return LocalMPScene(screen)
     elif scene_name == "RebelWinner":
         return RebelWinner(screen)
     elif scene_name == "ImperiumWinner":
         return ImperiumWinner(screen)
-    elif scene_name == "inputCode":
-        return InputCode(screen)
-    elif scene_name == "Arcadedon":
-        return Arcadedon(screen)
-    elif scene_name == "Gameover":
-        return GameOver(screen)
     else:
         return MenuScene(screen)
 
@@ -46,8 +58,8 @@ def main():
     pygame.mouse.set_visible(False)
 
     # Set up the current scene
-    current_scene = MenuScene(screen)
-
+    #current_scene = MenuScene(screen)
+    current_scene = DeathstarScene2(screen)
     # Set up the window title, icon and background
     pygame.display.set_caption('La sombra del Imperio: Guardianes de la paz')
     icon = pygame.image.load(ICON_PATH)
@@ -58,9 +70,16 @@ def main():
         current_scene.run()
         if current_scene.done:
             next_scene = current_scene.next_scene
-            current_scene = get_scene_by_name(next_scene, screen)
-            if current_scene is None:
-                break
+            try:
+                current_scene = get_scene_by_name(next_scene, screen, current_scene.resources)
+            except AttributeError:
+                current_scene = get_scene_by_name(next_scene, screen)
+                if current_scene is None:
+                    break
+            except Exception as e:
+                print(f"Game raised an exception: {e}\n"
+                      f"So we are going to the menu scene")
+                current_scene = MenuScene(screen)
 
 
 if __name__ == "__main__":

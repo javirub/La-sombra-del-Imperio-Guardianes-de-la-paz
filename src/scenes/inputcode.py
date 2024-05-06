@@ -40,17 +40,9 @@ class InputCode(Scene):
         text_rect = text_surface.get_rect(center=self.text_box_rect.center)
         self.screen.blit(text_surface, text_rect)
 
-    def get_scene_from_code(self, code):
-
-        if code == "estomereceun10":
-            return "intro"
-        elif code == "prueba":
-            return "localMP"
-        elif code == "largavidaalimperio":
-            return "ImperiumWinner"
-        elif code == "ElonMusk":
-            return "Deathstar"
-        elif code == "Arcadedon":
-            return "Arcadedon"
+    @staticmethod
+    def get_scene_from_code(code):
+        if code in CODES:
+            return CODES[code]
         else:
-            return "menu"  # Si la contraseña no coincide, vuelve al menú
+            return "menu"

@@ -22,6 +22,12 @@ class CadencePowerup(Powerup):
     def __init__(self, position):
         super().__init__(position, CADENCE_POWERUP_SPRITE)
 
-# TODO: class SpeedPowerup:
 
-# TODO: class HealthPowerup:
+class SpeedPowerup(Powerup):
+    def __init__(self, position):
+        super().__init__(position, SPEED_POWERUP_SPRITE)
+
+
+class HealthPowerup(Powerup):
+    def __init__(self, position):
+        super().__init__(position, HEALTH_POWERUP_SPRITE)

@@ -52,9 +52,9 @@ class DeathStar(Spaceship):
         clip.close()
 
 
-class TeslaRoadster(Spaceship):
-    def __init__(self, position):
-        super().__init__(position, 2, TESLA_ROADSTER_SPRITE, None)
+class DeathstarSpaceship(Spaceship):
+    def __init__(self, position, sprite):
+        super().__init__(position, 2, sprite, None)
         self.isDestroyed = False
 
     def draw(self, screen):
@@ -71,3 +71,5 @@ class TeslaRoadster(Spaceship):
                 explosion_y = self.rect.centery - self.explosion_sprite[int(self.current_sprite_index)].get_height() / 2
                 # Dibujamos la explosión
                 screen.blit(self.explosion_sprite[int(self.current_sprite_index)], (explosion_x, explosion_y))
+
+

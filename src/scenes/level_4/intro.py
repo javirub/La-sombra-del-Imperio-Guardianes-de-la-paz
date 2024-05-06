@@ -7,7 +7,7 @@ from ..scene import Scene  # Importa la clase Scene desde el módulo scene.py
 from game_objects.level_2.spaceships import TeslaRoadster
 
 
-class IntroScene2(Scene):
+class IntroScene3(Scene):
     def __init__(self, screen):
         super().__init__(screen)
         # Inicializa la escena
@@ -26,33 +26,27 @@ class IntroScene2(Scene):
         # Texto de la intro
         self.intro_text = """
         LA SOMBRA DEL IMPERIO
-        LA TIERRA SE ENFRENTA A SU DESTINO
+        LA TIERRA SE UNE
 
 
-        En los ecos de una amenaza silenciada, la humanidad se encuentra
+        Tras el ataque fallido del General Vader, la humanidad se encuentra
         al borde de una guerra intergaláctica sin precedentes. 
         Tras el inesperado ataque fallido hacia la Tierra, 
         liderado por el temible General Vader, los humanos, 
         ahora conscientes de la existencia de una fuerza imperial en Marte, 
-        se movilizan bajo la guía de Elon Musk. 
-        Con la resolución ardiente de proteger su hogar y explorar
-        los misterios de este nuevo adversario, la Tierra se convierte 
+        se movilizan bajo la guía de Kim Jong Ill junto a Elon Musk. 
+        Con la resolución ardiente de proteger su hogar, 
+        a pesar de las diferencias ideológicas, la Tierra se convierte
         en un hervidero de actividad científica y militar.
-
-        Mientras tanto, en Marte, el ejército imperial se sumerge 
-        en un debate interno, dividido entre aquellos que desean 
-        mantener su aislamiento y los que abogan por un enfrentamiento
-        directo con los humanos. La revelación accidental de su existencia
-        ha desencadenado un cambio irreversible en la dinámica de poder galáctico.
-        En un intento desesperado por salvaguardar sus secretos y su supervivencia, 
-        el General Vader convoca a los más grandes estrategas y científicos de
-        su imperio para idear un plan que asegure la victoria sobre la humanidad.
-
-        El escenario está listo para un encuentro épico, donde la ingeniería y 
-        el valor humano se enfrentarán a las avanzadas tecnologías 
-        y la sabiduría milenaria del Imperio. 
         
-        Código: Arcadedon
+        Mientras tanto, en Marte, el ejército imperial empieza a temer
+        por las capacidades tecnológicas de la Tierra.
+        En un intento desesperado por salvaguardar sus secretos y su supervivencia,
+        el General Vader convoca a los más grandes estrategas y científicos de
+        su imperio para idear un plan que asegure la victoria sobre la humanidad.  
+
+
+        Código: Team Korea
         """
 
         # Dividir el texto en líneas

@@ -93,6 +93,7 @@ class Spaceship:  # Clase padre de las naves espaciales
             pygame.mixer.Sound(self.sound_path).play()
             self.last_shot_time = current_time
             self.create_projectile()
+            print(f'')
             pass
         return None
 

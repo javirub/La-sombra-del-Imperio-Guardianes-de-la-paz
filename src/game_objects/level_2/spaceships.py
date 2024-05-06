@@ -81,17 +81,17 @@ class ArcadeSpaceship:
         assert NotImplementedError
 
     def start_hit_animation(self):
-        self.animating = True
-        self.current_sprite_index = 0
-        pygame.mixer.Sound(EXPLOSION_SOUND).play()
-        self.life -= 1
+        if self.life > 0:
+            self.animating = True
+            self.current_sprite_index = 0
+            pygame.mixer.Sound(EXPLOSION_SOUND).play()
+            self.life -= 1
 
 
 class Tie(ArcadeSpaceship):
     def __init__(self, position, image_path):
         super().__init__(position, image_path, TIE_FUNNY_SOUND)
         self.life = 3
-        self.cadence = 50
 
     def create_projectile(self):
         self.projectiles.append(PlayerProjectile((self.rect.centerx, self.rect.y), 25))
@@ -101,6 +101,11 @@ class TeslaRoadster(ArcadeSpaceship):
     def __init__(self, position, image_path):
         super().__init__(position, image_path, XWING_SOUND)
 
+    def shoot(self, current_time):
+        if self.shooting and self.can_shoot(current_time):
+            pygame.mixer.Sound(self.sound_path).play()
+            self.last_shot_time = current_time
+            return True
 
     def create_projectile(self):
         self.projectiles.append(EnemyProjectile((self.rect.centerx, self.rect.y), 0, 0))

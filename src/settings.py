@@ -22,8 +22,10 @@ EXPLOSION_SPRITE = os.path.join(BASE_DIR, './assets/images/explosion/explosion.p
 DEATHSTAR_SPRITE = os.path.join(BASE_DIR, './assets/images/spaceships/deathstar.png')
 EARTH_PLANET_SPRITE = os.path.join(BASE_DIR, './assets/images/other/earth.png')
 TESLA_ROADSTER_SPRITE = os.path.join(BASE_DIR, './assets/images/spaceships/tesla_roadster_space.png')
+SPY_SATELLITE_SPRITE = os.path.join(BASE_DIR, './assets/images/spaceships/satellite.png')
 ELON_MUSK_SPRITE = os.path.join(BASE_DIR, './assets/images/characters/elon_musk.png')
 LAUGHING_MUSK_SPRITE = os.path.join(BASE_DIR, './assets/images/characters/laughing_musk.png')
+KIM_JONG_ILL_SPRITE = os.path.join(BASE_DIR, './assets/images/characters/kim_jong_ill.png')
 DARTH_VADER_SPRITE = os.path.join(BASE_DIR, './assets/images/characters/darth_vader.png')
 ARCADE_TIE_SPRITE = os.path.join(BASE_DIR, './assets/images/spaceships/level 2/tie.png')
 ARCADE_TESLA_SPRITE = os.path.join(BASE_DIR, './assets/images/spaceships/level 2/tesla_spaceship.png')
@@ -54,3 +56,12 @@ DEATHSTAR_SHOOT_VIDEO = os.path.join(BASE_DIR, './assets/videos/deathstarShoot.m
 
 # Fonts
 FONT_PATH = os.path.join(BASE_DIR, './assets/fonts/gameFont.ttf')
+
+# Codes
+CODES = {
+    "estomereceun10": "intro",
+    "prueba": "localMP",
+    "largavidaalimperio": "ImperiumWinner",
+    "ElonMusk": "Deathstar",
+    "Arcadedon": "Arcadedon"
+}

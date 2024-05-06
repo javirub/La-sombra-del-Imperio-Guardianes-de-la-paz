@@ -14,7 +14,8 @@ class DialogueBox:
         self.sprites = {
             'darth_vader': pygame.image.load(DARTH_VADER_SPRITE),
             'elon_musk': pygame.image.load(ELON_MUSK_SPRITE),
-            'laughing_musk': pygame.image.load(LAUGHING_MUSK_SPRITE)
+            'laughing_musk': pygame.image.load(LAUGHING_MUSK_SPRITE),
+            'Kim Jong Ill': pygame.image.load(KIM_JONG_ILL_SPRITE)
         }
         self.current_speaker = 'elon_musk'
         self.dialogue_lines = []
