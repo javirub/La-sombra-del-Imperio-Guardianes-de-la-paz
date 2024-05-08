@@ -107,6 +107,15 @@ class TeslaRoadster(ArcadeSpaceship):
 
     def create_powerup(self):
         pass
+# TODO: Test if loading once the sound is faster than loading it every time a spaceship is created
+class ComunistSpaceship(ArcadeSpaceship):
+    def __init__(self, position, image_path):
+        super().__init__(position, image_path, XWING_SOUND) # TODO: New sound
+        self.life = 3
 
+    def create_projectile(self):
+        self.projectiles.append(EnemyProjectile((self.rect.centerx, self.rect.y), 0, 0)) #TODO: New projectile
+        self.shooting = False
 
-# TODO: One more class for Stronk Spaceship, with higher life and different shooting cadence and higher drop rate
+    def create_powerup(self):
+        pass
