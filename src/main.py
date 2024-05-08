@@ -62,7 +62,7 @@ def main():
 
     # Set up the current scene
     #current_scene = MenuScene(screen)
-    current_scene = DeathstarScene3(screen)
+    current_scene = Arcadedon_with_steroids(screen)
     # Set up the window title, icon and background
     pygame.display.set_caption('La sombra del Imperio: Guardianes de la paz')
     icon = pygame.image.load(ICON_PATH)
