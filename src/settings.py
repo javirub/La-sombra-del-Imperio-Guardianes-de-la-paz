@@ -3,7 +3,7 @@ import os
 # Get the absolute path to the directory containing this file
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Window dimensions
+# Window dimensions, actually not changeable as the game is not responsive
 WIDTH, HEIGHT = 1920, 1080
 
 # Frame rate
@@ -16,26 +16,38 @@ BACKGROUND_INTRO = os.path.join(BASE_DIR, './assets/images/backgrounds/bgIntro.j
 BACKGROUND_MENU = os.path.join(BASE_DIR, './assets/images/backgrounds/bgMenu.jpg')
 
 # Sprites
+# Spaceships
 TIE_SPRITE = os.path.join(BASE_DIR, './assets/images/spaceships/tie.png')
 XWING_SPRITE = os.path.join(BASE_DIR, './assets/images/spaceships/xwing.png')
+# Animations
 EXPLOSION_SPRITE = os.path.join(BASE_DIR, './assets/images/explosion/explosion.png')
+# Others
 DEATHSTAR_SPRITE = os.path.join(BASE_DIR, './assets/images/spaceships/deathstar.png')
+EARTH_PLANET_SPRITE = os.path.join(BASE_DIR, './assets/images/other/earth.png')
+# Satellites
 SPY_SATELLITE_SPRITE = os.path.join(BASE_DIR, './assets/images/spaceships/satellite.png')
 GOLDEN_TRUMP_SPRITE = os.path.join(BASE_DIR, './assets/images/spaceships/golden_trump.png')
-EARTH_PLANET_SPRITE = os.path.join(BASE_DIR, './assets/images/other/earth.png')
 TESLA_ROADSTER_SPRITE = os.path.join(BASE_DIR, './assets/images/spaceships/tesla_roadster_space.png')
+# Characters
 ELON_MUSK_SPRITE = os.path.join(BASE_DIR, './assets/images/characters/elon_musk.png')
 LAUGHING_MUSK_SPRITE = os.path.join(BASE_DIR, './assets/images/characters/laughing_musk.png')
 KIM_JONG_ILL_SPRITE = os.path.join(BASE_DIR, './assets/images/characters/kim_jong_ill.png')
 DARTH_VADER_SPRITE = os.path.join(BASE_DIR, './assets/images/characters/darth_vader.png')
+DONALD_TRUMP_SPRITE = os.path.join(BASE_DIR, './assets/images/characters/donald_trump.png')
+# Arcade spaceships
 ARCADE_TIE_SPRITE = os.path.join(BASE_DIR, './assets/images/spaceships/level 2/tie.png')
 ARCADE_TESLA_SPRITE = os.path.join(BASE_DIR, './assets/images/spaceships/level 2/tesla_spaceship.png')
+TESLA_UPGRADED_SPRITE = os.path.join(BASE_DIR, './assets/images/spaceships/level 4/roadster_armed.png')
+KOREA_TANK_SPRITE = os.path.join(BASE_DIR, './assets/images/spaceships/level 4/korea_tank.png')
+# Powerups
 CADENCE_POWERUP_SPRITE = os.path.join(BASE_DIR, './assets/images/powerups/cadence.png')
 HEALTH_POWERUP_SPRITE = os.path.join(BASE_DIR, './assets/images/powerups/health.png')
 SPEED_POWERUP_SPRITE = os.path.join(BASE_DIR, './assets/images/powerups/speed.png')
+
 # Sounds & songs
 TIE_SOUND = os.path.join(BASE_DIR, './assets/sounds/tieblast.wav')
 XWING_SOUND = os.path.join(BASE_DIR, './assets/sounds/xwingblast.wav')
+TANK_SOUND = os.path.join(BASE_DIR, './assets/sounds/tank_shoot.wav')
 EXPLOSION_SOUND = os.path.join(BASE_DIR, './assets/sounds/explosion.wav')
 TIE_FUNNY_SOUND = os.path.join(BASE_DIR, './assets/sounds/piu.wav')
 XWING_FUNNY_SOUND = os.path.join(BASE_DIR, './assets/sounds/piu.wav')

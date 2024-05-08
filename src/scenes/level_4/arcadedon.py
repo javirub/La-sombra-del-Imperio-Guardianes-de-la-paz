@@ -2,8 +2,8 @@ import sys
 import random
 
 from game_objects.dialogueBox import DialogueBox
-from game_objects.level_4.spaceships import *
-from game_objects.level_4.powerups import *
+from game_objects.arcade.spaceships import *
+from game_objects.arcade.powerups import *
 from utils.collision import *
 from scenes.scene import Scene
 
@@ -31,20 +31,29 @@ class Arcadedon_with_steroids(Scene):
         self.story_stage = 0
 
         # Enemies
+        self.enemies = []
         self.enemy_spawn = LEVEL4_ENEMIES
-        self.TESLA_SPRITE = pygame.image.load(ARCADE_TESLA_SPRITE).convert_alpha()  # This way only one time is loaded
+        self.TESLA_SPRITE = pygame.image.load(TESLA_UPGRADED_SPRITE).convert_alpha()  # This way only one time is loaded
+        self.KOREA_TANK_SPRITE = pygame.image.load(KOREA_TANK_SPRITE).convert_alpha()
         # Si hemos precargado los enemigos en la escena anterior, los cargamos, si no, los creamos
         # Es necesario precargar ya que la creación de los enemigos es muy costosa y ralentiza el juego
         if enemies is not None:
             enemy_count = len(enemies)
-            if enemy_count >= self.enemy_spawn:
-                self.enemies = enemies
-            else:
-                self.enemies = enemies + [TeslaRoadster((WIDTH - 220, 100), self.TESLA_SPRITE)
-                                          for _ in range(self.enemy_spawn - enemy_count)]
+            # Si se han cargado todos los enemigos, no creamos nuevos. Si no, creamos los que falten
+            self.enemies = enemies
+            while self.enemy_spawn - enemy_count > 0:
+                if enemy_count % 5 == 0:
+                    self.enemies.append(ComunistSpaceship((WIDTH - 220, 100), self.KOREA_TANK_SPRITE))
+                else:
+                    self.enemies.append(TeslaRoadster((WIDTH - 220, 100), self.TESLA_SPRITE))
+                enemy_count += 1
+        # Si no se ha cargado ningún enemigo, creamos todos
         else:
-            self.enemies = [TeslaRoadster((WIDTH - 220, 100), self.TESLA_SPRITE) for _ in range(self.enemy_spawn)]
-        self.enemy_projectiles = []  # This is necessary to avoid a bug in the game when the enemy dies
+            for enemy in range(self.enemy_spawn):
+                if enemy % 5 == 0:
+                    self.enemies.append(ComunistSpaceship((WIDTH - 220, 100), self.KOREA_TANK_SPRITE))
+                else:
+                    self.enemies.append(TeslaRoadster((WIDTH - 220, 100), self.TESLA_SPRITE))
         self.last_time_spawn = pygame.time.get_ticks()
         self.time_to_shoot = random.randint(500, 4000)
 
@@ -151,9 +160,11 @@ class Arcadedon_with_steroids(Scene):
         for powerup in self.powerups:
             if check_collision(powerup.rect, self.player.rect):
                 if isinstance(powerup, CadencePowerup):
-                    self.player.cadence += 200
+                    if self.player.cadence > 300:
+                        self.player.cadence -= 100
                 elif isinstance(powerup, SpeedPowerup):
-                    self.player.speed += 1
+                    if self.player.speed < 10:
+                        self.player.speed += 1
                 elif isinstance(powerup, HealthPowerup):
                     if self.player.life < 3:
                         self.player.life += 1
@@ -167,7 +178,6 @@ class Arcadedon_with_steroids(Scene):
             if current_time - self.last_shoot_time > self.time_to_shoot:
                 self.last_shoot_time = current_time
                 random_enemy.shooting = True
-                self.enemy_projectiles.append(random_enemy.create_projectile())
                 self.time_to_shoot = random.randint(500, 1500)
 
     def enemy_movement(self):
@@ -211,13 +221,13 @@ class Arcadedon_with_steroids(Scene):
 
     def check_powerup(self, enemy):
         random_number = random.randint(0, 50)
-        if random_number in (0, 15):
+        if random_number in range(0, 5):
             # Cadence powerup
             self.powerups.append(CadencePowerup(enemy.rect.center))
-        elif random_number in (16, 31):
+        elif random_number in range(10, 15):
             # Speed powerup
             self.powerups.append(SpeedPowerup(enemy.rect.center))
-        elif random_number in (32, 50):
+        elif random_number in range(20, 25):
             # Health powerup
             self.powerups.append(HealthPowerup(enemy.rect.center))
         else:

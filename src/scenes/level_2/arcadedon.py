@@ -2,7 +2,7 @@ import random
 import sys
 
 from game_objects.dialogueBox import DialogueBox
-from game_objects.level_2.spaceships import *
+from game_objects.arcade.spaceships import *
 from utils.collision import *
 from ..scene import Scene
 
@@ -146,7 +146,6 @@ class Arcadedon(Scene):
             if current_time - self.last_shoot_time > self.time_to_shoot:
                 self.last_shoot_time = current_time
                 random_enemy.shooting = True
-                self.enemy_projectiles.append(random_enemy.create_projectile())
                 self.time_to_shoot = random.randint(500, 1500)
 
     def enemy_movement(self):

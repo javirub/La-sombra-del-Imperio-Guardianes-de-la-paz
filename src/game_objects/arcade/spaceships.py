@@ -1,4 +1,4 @@
-from game_objects.level_4.projectiles import *
+from game_objects.arcade.projectiles import *
 from settings import *
 from utils.sprites import load_sprite_sheet
 
@@ -105,17 +105,15 @@ class TeslaRoadster(ArcadeSpaceship):
         self.projectiles.append(EnemyProjectile((self.rect.centerx, self.rect.y), 0, 0))
         self.shooting = False
 
-    def create_powerup(self):
-        pass
+
 # TODO: Test if loading once the sound is faster than loading it every time a spaceship is created
 class ComunistSpaceship(ArcadeSpaceship):
     def __init__(self, position, image_path):
-        super().__init__(position, image_path, XWING_SOUND) # TODO: New sound
+        super().__init__(position, image_path, TANK_SOUND) # TODO: New sound
         self.life = 3
 
     def create_projectile(self):
-        self.projectiles.append(EnemyProjectile((self.rect.centerx, self.rect.y), 0, 0)) #TODO: New projectile
+        self.projectiles.append(EnemyProjectile((self.rect.centerx, self.rect.y), 0, 50, (255, 255, 0)))
         self.shooting = False
 
-    def create_powerup(self):
-        pass
+
