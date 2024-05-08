@@ -48,6 +48,11 @@ class Arcadedon_with_steroids(Scene):
         self.last_time_spawn = pygame.time.get_ticks()
         self.time_to_shoot = random.randint(500, 4000)
 
+        # test
+        self.cadence_powerup = CadencePowerup((WIDTH / 2 - 100, HEIGHT / 2))
+        self.health_powerup = HealthPowerup((WIDTH / 2 + 100, HEIGHT / 2))
+        self.speed_powerup = SpeedPowerup((WIDTH / 2 + 300, HEIGHT / 2))
+
     def update(self):
         # Game actions
         self.player.update()
@@ -85,6 +90,10 @@ class Arcadedon_with_steroids(Scene):
             self.screen.blit(self.TIE_SPRITE, (WIDTH - 150, HEIGHT - 100))
         elif self.player.life == 1:
             self.screen.blit(self.TIE_SPRITE, (WIDTH - 200, HEIGHT - 100))
+        # Test
+        self.cadence_powerup.draw(self.screen)
+        self.health_powerup.draw(self.screen)
+        self.speed_powerup.draw(self.screen)
 
     def handle_events(self):
         for event in pygame.event.get():
@@ -189,16 +198,16 @@ class Arcadedon_with_steroids(Scene):
                 "Era como si una persona estuviese diciendo PIU PIU PIU."
             ])
 
-    def check_powerup(self, enemy):
-        random_number = random.randint(0, 100)
-        if random_number in (0, 5):
-            # Cadence powerup
-            self.powerup.append(CadencePowerup(enemy.rect.center))
-        elif random_number in (20, 25):
-            # Speed powerup
-            self.powerup.append(SpeedPowerup(enemy.rect.center))
-        elif random_number in (40, 45):
-            # Health powerup
-            self.powerup.append(HealthPowerup(enemy.rect.center))
-        else:
-            return None
+    # def check_powerup(self, enemy):
+    #     random_number = random.randint(0, 100)
+    #     if random_number in (0, 5):
+    #         # Cadence powerup
+    #         self.powerup.append(CadencePowerup(enemy.rect.center))
+    #     elif random_number in (20, 25):
+    #         # Speed powerup
+    #         self.powerup.append(SpeedPowerup(enemy.rect.center))
+    #     elif random_number in (40, 45):
+    #         # Health powerup
+    #         self.powerup.append(HealthPowerup(enemy.rect.center))
+    #     else:
+    #         return None

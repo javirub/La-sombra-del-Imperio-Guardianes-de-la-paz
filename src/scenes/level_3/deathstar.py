@@ -64,6 +64,7 @@ class DeathstarScene2(Scene):
                     self.deathstar.projectiles.remove(projectile)
                     self.tesla.start_hit_animation()
                     self.tesla.isDestroyed = True
+                    self.tesla.life = 0
                     self.show_dialogue = True
                     self.dialogue_box.current_speaker = 'Kim Jong Ill'
                     self.story_stage = 1

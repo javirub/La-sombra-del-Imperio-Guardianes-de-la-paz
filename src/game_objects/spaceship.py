@@ -106,7 +106,8 @@ class Spaceship:  # Clase padre de las naves espaciales
         self.projectiles.append(Projectile((self.rect.centerx, self.rect.centery), self.radians, 0, 0, (0, 0, 0)))
 
     def update(self):
-        self.move_forward()
+        if self.life > 0:
+            self.move_forward()
         for projectile in self.projectiles:
             projectile.update()
             if projectile.y < 0 or projectile.y > HEIGHT or projectile.x < 0 or projectile.x > WIDTH:

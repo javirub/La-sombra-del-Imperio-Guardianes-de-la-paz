@@ -8,6 +8,7 @@ from scenes.level_2.intro import IntroScene2
 from scenes.level_3.deathstar import DeathstarScene2
 from scenes.level_4.intro import IntroScene3
 from scenes.level_4.arcadedon import Arcadedon_with_steroids
+from scenes.level_5.deathstar import DeathstarScene3
 from scenes.localMP import LocalMPScene
 from scenes.menu import MenuScene
 from scenes.winner import RebelWinner, ImperiumWinner
@@ -36,6 +37,8 @@ def get_scene_by_name(scene_name, screen, resources=None):
         return IntroScene3(screen)
     elif scene_name == "Arcadedon2":
         return Arcadedon_with_steroids(screen, resources)
+    elif scene_name == "Deathstar3":
+        return DeathstarScene3(screen)
     elif scene_name == "Gameover":
         return GameOver(screen)
     # Multiplayer
@@ -59,7 +62,7 @@ def main():
 
     # Set up the current scene
     #current_scene = MenuScene(screen)
-    current_scene = DeathstarScene2(screen)
+    current_scene = DeathstarScene3(screen)
     # Set up the window title, icon and background
     pygame.display.set_caption('La sombra del Imperio: Guardianes de la paz')
     icon = pygame.image.load(ICON_PATH)
