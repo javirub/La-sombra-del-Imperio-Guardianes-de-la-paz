@@ -104,6 +104,7 @@ class TeslaRoadster(ArcadeSpaceship):
         self.shooting = False
 
     def create_powerup(self):
+        pass
 
 
 # TODO: One more class for Stronk Spaceship, with higher life and different shooting cadence and higher drop rate

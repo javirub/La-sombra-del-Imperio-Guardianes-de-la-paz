@@ -30,7 +30,7 @@ DARTH_VADER_SPRITE = os.path.join(BASE_DIR, './assets/images/characters/darth_va
 ARCADE_TIE_SPRITE = os.path.join(BASE_DIR, './assets/images/spaceships/level 2/tie.png')
 ARCADE_TESLA_SPRITE = os.path.join(BASE_DIR, './assets/images/spaceships/level 2/tesla_spaceship.png')
 CADENCE_POWERUP_SPRITE = os.path.join(BASE_DIR, './assets/images/powerups/cadence.png')
-
+HEALTH_POWERUP_SPRITE = os.path.join(BASE_DIR, './assets/images/powerups/health.png')
 # Sounds & songs
 TIE_SOUND = os.path.join(BASE_DIR, './assets/sounds/tieblast.wav')
 XWING_SOUND = os.path.join(BASE_DIR, './assets/sounds/xwingblast.wav')
@@ -57,9 +57,13 @@ DEATHSTAR_SHOOT_VIDEO = os.path.join(BASE_DIR, './assets/videos/deathstarShoot.m
 # Fonts
 FONT_PATH = os.path.join(BASE_DIR, './assets/fonts/gameFont.ttf')
 
+# Game settings
+LEVEL2_ENEMIES = 50
+LEVEL4_ENEMIES = 50
+
 # Codes
 CODES = {
-    "estomereceun10": "intro",
+    "estomereceun10": "intro", # Cambiar a final
     "prueba": "localMP",
     "largavidaalimperio": "ImperiumWinner",
     "ElonMusk": "Deathstar",

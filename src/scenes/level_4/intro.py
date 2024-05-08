@@ -73,7 +73,7 @@ class IntroScene3(Scene):
         self.enemies_created = 0
 
     def load_resources(self):
-        if self.enemies_created < 50:
+        if self.enemies_created < LEVEL4_ENEMIES:
             self.resources.append(TeslaRoadster((WIDTH - 220, 100), self.TESLA_SPRITE))
             self.enemies_created += 1
 

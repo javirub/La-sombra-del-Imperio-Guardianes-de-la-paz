@@ -31,7 +31,7 @@ class Arcadedon_with_steroids(Scene):
         self.story_stage = 0
 
         # Enemies
-        self.enemy_spawn = 50
+        self.enemy_spawn = LEVEL4_ENEMIES
         self.TESLA_SPRITE = pygame.image.load(ARCADE_TESLA_SPRITE).convert_alpha()  # This way only one time is loaded
         # Si hemos precargado los enemigos en la escena anterior, los cargamos, si no, los creamos
         # Es necesario precargar ya que la creación de los enemigos es muy costosa y ralentiza el juego
