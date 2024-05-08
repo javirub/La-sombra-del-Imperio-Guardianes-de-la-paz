@@ -16,7 +16,9 @@ class DialogueBox:
             'elon_musk': pygame.image.load(ELON_MUSK_SPRITE),
             'laughing_musk': pygame.image.load(LAUGHING_MUSK_SPRITE),
             'Kim Jong Ill': pygame.image.load(KIM_JONG_ILL_SPRITE),
-            'Donald Trump': pygame.image.load(DONALD_TRUMP_SPRITE)
+            'Donald Trump': pygame.image.load(DONALD_TRUMP_SPRITE),
+            'Harrison Ford': pygame.image.load(HARRISON_FORD_SPRITE),
+            'Chewbacca': pygame.image.load(CHEWBACCA_SPRITE),
         }
         self.current_speaker = 'elon_musk'
         self.dialogue_lines = []

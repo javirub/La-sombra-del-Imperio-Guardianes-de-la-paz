@@ -4,14 +4,14 @@ import pygame
 
 from settings import *
 from ..scene import Scene  # Importa la clase Scene desde el módulo scene.py
-from game_objects.level_2.spaceships import TeslaRoadster
+from game_objects.arcade.spaceships import TeslaRoadster, ComunistSpaceship
 
 
 class IntroScene3(Scene):
     def __init__(self, screen):
         super().__init__(screen)
         # Inicializa la escena
-        self.next_scene = "Arcadedon"  # Define a qué escena cambiar después
+        self.next_scene = "Arcadedon2"  # Define a qué escena cambiar después
 
         # Iniciamos el módulo mixer de pygame
         pygame.mixer.init()
@@ -69,12 +69,16 @@ class IntroScene3(Scene):
 
         # Precargar enemigos siguiente nivel
         self.TESLA_SPRITE = pygame.image.load(ARCADE_TESLA_SPRITE).convert_alpha()  # This way only one time is loaded
+        self.KOREA_TANK_SPRITE = pygame.image.load(KOREA_TANK_SPRITE).convert_alpha()
         self.resources = []
         self.enemies_created = 0
 
     def load_resources(self):
         if self.enemies_created < LEVEL4_ENEMIES:
-            self.resources.append(TeslaRoadster((WIDTH - 220, 100), self.TESLA_SPRITE))
+            if self.enemies_created % 5 == 0:
+                self.resources.append(ComunistSpaceship((WIDTH - 220, 100), self.KOREA_TANK_SPRITE))
+            else:
+                self.resources.append(TeslaRoadster((WIDTH - 220, 100), self.TESLA_SPRITE))
             self.enemies_created += 1
 
     def update(self):

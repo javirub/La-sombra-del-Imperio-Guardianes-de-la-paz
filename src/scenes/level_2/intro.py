@@ -4,7 +4,7 @@ import pygame
 
 from settings import *
 from ..scene import Scene  # Importa la clase Scene desde el módulo scene.py
-from game_objects.level_2.spaceships import TeslaRoadster
+from game_objects.arcade.spaceships import TeslaRoadster
 
 
 class IntroScene2(Scene):

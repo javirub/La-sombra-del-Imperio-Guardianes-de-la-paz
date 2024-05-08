@@ -66,42 +66,56 @@ class DeathstarScene3(Scene):
                     self.tesla.isDestroyed = True
                     self.tesla.life = 0
                     self.show_dialogue = True
-                    self.dialogue_box.current_speaker = 'Kim Jong Ill'
+                    self.dialogue_box.current_speaker = 'Donald Trump'
                     self.story_stage = 1
                     self.dialogue_box.add_dialogue([
-                        "¿Quien se atreve a atacar mi satelite espia?"
+                        "¿Quien se atreve a atacar mi estatua dorada?",
+                        "No importa, la reconstruiré con el dinero de los mexicanos."
                     ])
         if self.dialogue_box.finished and self.story_stage == 1:
             self.story_stage = 2
             self.dialogue_box.finished = False
             self.dialogue_box.current_speaker = 'darth_vader'
             self.dialogue_box.add_dialogue([
-                "¿Por que razón estos humanos tienen llena de basura el espacio?",
-                "Tendremos que volver a esperar a que se enfrie la estrella de la muerte",
-                "para poder volver a disparar."
+                "Ya estoy harto de estos personajes de la tierra",
+                "no hacen más que llenar el espacio de basura",
+                "pensaba eliminaros por proteger mis secretos",
+                "pero ahora lo haré por el bien del universo."
             ])
 
         elif self.dialogue_box.finished and self.story_stage == 2:
             self.story_stage = 3
             self.dialogue_box.finished = False
-            self.dialogue_box.current_speaker = 'Kim Jong Ill'
+            self.dialogue_box.current_speaker = 'Donald Trump'
             self.dialogue_box.add_dialogue([
-                "¿Pretendes derrotar la tierra?",
-                "No te lo permitiré, solo yo puedo usar armas de destrucción masiva",
+                "¿Has llamado basura a mi estatua?",
+                "Esto es intolerable, enviaré a mi agente especial para que te de una lección."
             ])
 
         elif self.dialogue_box.finished and self.story_stage == 3:
             # Esto es para que no se muestre el mensaje de dialogo vacio mientras se carga el siguiente nivel
             self.dialogue_box.finished = False
             self.story_stage = 4
-            self.dialogue_box.current_speaker = 'darth_vader'
+            self.dialogue_box.current_speaker = 'Harrison Ford'
             self.dialogue_box.add_dialogue([
-                "¿Qué? ¿Quién eres tú?",
-                "No importa, también acabaré contigo."
+                "Agente especial Harrison Ford a la orden",
+                "me resulta familiar este enemigo...",
+                "pero no importa, lo derrotaré con tal de poder disfrutar",
+                "de mi buffet libre en Mcdonalds.",
+                "¡Vamos a por él!"
             ])
 
         elif self.dialogue_box.finished and self.story_stage == 4:
+            self.dialogue_box.finished = False
+            pygame.mixer.Sound(WOOKIE_SOUND).play()
+            self.story_stage = 5
+            self.dialogue_box.current_speaker = 'Chewbacca'
+            self.dialogue_box.add_dialogue([
+                "*Wokie*",
+                ])
+
+        elif self.dialogue_box.finished and self.story_stage == 5:
             # Esto es para que no se muestre el mensaje de dialogo vacio mientras se carga el siguiente nivel
             self.show_dialogue = False
-            self.next_scene = "Arcadedon2"
+            self.next_scene = "MilleniumFalcon"
             self.done = True

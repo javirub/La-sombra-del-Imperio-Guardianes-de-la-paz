@@ -39,6 +39,9 @@ def get_scene_by_name(scene_name, screen, resources=None):
         return Arcadedon_with_steroids(screen, resources)
     elif scene_name == "Deathstar3":
         return DeathstarScene3(screen)
+    elif scene_name == "MilleniumFalcon":
+        pass
+        #return MilleniumFalcon(screen)
     elif scene_name == "Gameover":
         return GameOver(screen)
     # Multiplayer
@@ -62,7 +65,7 @@ def main():
 
     # Set up the current scene
     #current_scene = MenuScene(screen)
-    current_scene = Arcadedon(screen)
+    current_scene = DeathstarScene3(screen)
     # Set up the window title, icon and background
     pygame.display.set_caption('La sombra del Imperio: Guardianes de la paz')
     icon = pygame.image.load(ICON_PATH)

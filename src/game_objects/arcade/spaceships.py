@@ -106,14 +106,13 @@ class TeslaRoadster(ArcadeSpaceship):
         self.shooting = False
 
 
-# TODO: Test if loading once the sound is faster than loading it every time a spaceship is created
 class ComunistSpaceship(ArcadeSpaceship):
     def __init__(self, position, image_path):
         super().__init__(position, image_path, TANK_SOUND) # TODO: New sound
         self.life = 3
 
     def create_projectile(self):
-        self.projectiles.append(EnemyProjectile((self.rect.centerx, self.rect.y), 0, 50, (255, 255, 0)))
+        self.projectiles.append(EnemyProjectile((self.rect.centerx, self.rect.y), 0, 100, (255, 255, 0)))
         self.shooting = False
 
 

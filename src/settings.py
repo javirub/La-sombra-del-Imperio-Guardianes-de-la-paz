@@ -34,6 +34,8 @@ LAUGHING_MUSK_SPRITE = os.path.join(BASE_DIR, './assets/images/characters/laughi
 KIM_JONG_ILL_SPRITE = os.path.join(BASE_DIR, './assets/images/characters/kim_jong_ill.png')
 DARTH_VADER_SPRITE = os.path.join(BASE_DIR, './assets/images/characters/darth_vader.png')
 DONALD_TRUMP_SPRITE = os.path.join(BASE_DIR, './assets/images/characters/donald_trump.png')
+HARRISON_FORD_SPRITE = os.path.join(BASE_DIR, './assets/images/characters/harrison_ford.png')
+CHEWBACCA_SPRITE = os.path.join(BASE_DIR, './assets/images/characters/chewbacca.png')
 # Arcade spaceships
 ARCADE_TIE_SPRITE = os.path.join(BASE_DIR, './assets/images/spaceships/level 2/tie.png')
 ARCADE_TESLA_SPRITE = os.path.join(BASE_DIR, './assets/images/spaceships/level 2/tesla_spaceship.png')
@@ -60,7 +62,7 @@ GAME_SONG_PATH = os.path.join(BASE_DIR, './assets/music/game_song.ogg')
 IMPERIUM_WINNER_SONG_PATH = os.path.join(BASE_DIR, './assets/music/menu_song.ogg')
 REBEL_WINNER_SONG_PATH = os.path.join(BASE_DIR, './assets/music/intro_song.ogg')
 EPIC_SONG_PATH = os.path.join(BASE_DIR, './assets/music/O Fortuna.ogg')
-
+WOOKIE_SOUND = os.path.join(BASE_DIR, './assets/sounds/wookie.wav')
 # Narrator
 LEVEL1_NARRATOR = os.path.join(BASE_DIR, './assets/sounds/narrator/level1.ogg')
 LEVEL2_NARRATOR = os.path.join(BASE_DIR, './assets/sounds/narrator/level2.ogg')
@@ -73,7 +75,7 @@ FONT_PATH = os.path.join(BASE_DIR, './assets/fonts/gameFont.ttf')
 
 # Game settings
 LEVEL2_ENEMIES = 50
-LEVEL4_ENEMIES = 50
+LEVEL4_ENEMIES = 100
 
 # Codes
 CODES = {

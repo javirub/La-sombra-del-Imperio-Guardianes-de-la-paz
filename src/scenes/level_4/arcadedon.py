@@ -55,7 +55,7 @@ class Arcadedon_with_steroids(Scene):
                 else:
                     self.enemies.append(TeslaRoadster((WIDTH - 220, 100), self.TESLA_SPRITE))
         self.last_time_spawn = pygame.time.get_ticks()
-        self.time_to_shoot = random.randint(500, 4000)
+        self.time_to_shoot = random.randint(500, 2000)
 
         self.powerups = []
 
@@ -204,21 +204,6 @@ class Arcadedon_with_steroids(Scene):
             self.next_scene = "Gameover"
             self.done = True
 
-    def show_dialogues(self):
-        if self.show_dialogue and self.story_stage == 0:
-            self.story_stage = 1
-            self.dialogue_box.add_dialogue([
-                "Vaya, eso ha sido fácil, 50 a 0."
-            ])
-        elif self.story_stage == 1 and self.dialogue_box.finished:
-            self.story_stage = 2
-            self.dialogue_box.finished = False
-            self.dialogue_box.current_speaker = 'laughing_musk'
-            self.dialogue_box.add_dialogue([
-                "JAJAJA, ¿Pero que ha sido ese ruido?.",
-                "Era como si una persona estuviese diciendo PIU PIU PIU."
-            ])
-
     def check_powerup(self, enemy):
         random_number = random.randint(0, 50)
         if random_number in range(0, 5):
@@ -232,3 +217,39 @@ class Arcadedon_with_steroids(Scene):
             self.powerups.append(HealthPowerup(enemy.rect.center))
         else:
             return None
+
+    def show_dialogues(self):
+        if self.show_dialogue and self.story_stage == 0:
+            self.story_stage = 1
+            self.dialogue_box.add_dialogue([
+                "¿Eso es todo?",
+                "Ni uniendo vuestras fuerzas podéis conmigo."
+            ])
+        elif self.story_stage == 1 and self.dialogue_box.finished:
+            self.story_stage = 2
+            self.dialogue_box.finished = False
+            self.dialogue_box.current_speaker = 'elon_musk'
+            self.dialogue_box.add_dialogue([
+                "La cosa se ha puesto seria.",
+                "Ahora sus naves suenan temibles."
+            ])
+        elif self.story_stage == 2 and self.dialogue_box.finished:
+            self.story_stage = 3
+            self.dialogue_box.finished = False
+            self.dialogue_box.current_speaker = 'Kim Jong Ill'
+            self.dialogue_box.add_dialogue([
+                "¿Que vamos a hacer?",
+                "Ni tan siquiera unidos podemos con él."
+            ])
+        elif self.story_stage == 3 and self.dialogue_box.finished:
+            self.story_stage = 4
+            self.dialogue_box.finished = False
+            self.dialogue_box.current_speaker = 'darth_vader'
+            self.dialogue_box.add_dialogue([
+                "No tenéis que hacer nada.",
+                "El fin del planeta tierra ha llegado."
+            ])
+        elif self.story_stage == 4 and self.dialogue_box.finished:
+            self.show_dialogue = False
+            self.next_scene = "deathstar3"
+            self.done = True
