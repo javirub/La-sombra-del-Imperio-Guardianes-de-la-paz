@@ -91,6 +91,7 @@ class Tie(ArcadeSpaceship):
     def __init__(self, position, image_path):
         super().__init__(position, image_path, TIE_SOUND)
         self.life = 3
+        self.speed = 6
 
     def create_projectile(self):
         self.projectiles.append(PlayerProjectile((self.rect.centerx, self.rect.y), 25))

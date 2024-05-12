@@ -73,3 +73,30 @@ class DeathstarSpaceship(Spaceship):
                 screen.blit(self.explosion_sprite[int(self.current_sprite_index)], (explosion_x, explosion_y))
 
 
+class FinalDeathstar(DeathStar):
+    def __init__(self, position):
+        super().__init__(position, 0)
+
+    def play_video(self):
+        clip = VideoFileClip(DEATHSTAR_HIT_EARTH_VIDEO)
+        clip.preview(fullscreen=True)
+        clip.close()
+
+    def update(self):
+        current_time = time.time()
+
+        # Si ha pasado un segundo reduce la energía
+        if current_time - self.last_second >= 1:
+            if self.energy > 0:
+                self.energy -= 3
+            self.last_second = current_time
+
+    def draw(self, screen):
+        screen.blit(self.rotated, self.rect)
+
+        if 0 < self.energy < 30 and not self.hasShoot:
+            pygame.draw.circle(screen, (0, 255, 0), (self.rect.centerx + 100, self.rect.centery - 120),
+                               self.energy)
+        elif self.energy >= 30 and not self.hasShoot:
+            self.play_video()
+            self.hasShoot = True

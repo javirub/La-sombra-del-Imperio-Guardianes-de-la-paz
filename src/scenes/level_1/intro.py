@@ -38,9 +38,7 @@ class IntroScene(Scene):
 
         Sin embargo, en las sombras de este desolado desierto se esconde un
         secreto ancestral: una base secreta imperial, testigo silencioso de un 
-        poder que trasciende las estrellas. Este bastión, olvidado por eones, 
-        alberga a los últimos vestigios de un ejército imperial, descendientes 
-        de una civilización que una vez dominó la galaxia.
+        poder que trasciende las estrellas. 
         
         Al descubrir los planes humanos de colonización, el ejército imperial 
         se enfrenta a un dilema. Temiendo que la presencia humana en Marte pueda 

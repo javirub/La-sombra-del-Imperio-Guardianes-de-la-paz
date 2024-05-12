@@ -133,3 +133,33 @@ class XWing(Spaceship):
         offset_y = 50 if self.fire_toggle else -50
         self.projectiles.append(
             Projectile((self.rect.centerx, self.rect.centery), self.radians, 0, offset_y, (255, 0, 0)))
+
+
+class MilleniumFalcon(Spaceship):
+    def __init__(self, position, rotation):
+        super().__init__(position, rotation, FALCON_SPRITE, XWING_SOUND)
+
+    def create_projectile(self):
+        self.projectiles.append(Projectile((self.rect.centerx, self.rect.centery), self.radians, 0, 10, (0, 255, 0)))
+
+
+class KoreaTank(Spaceship):
+    def __init__(self, position, rotation):
+        super().__init__(position, rotation, KOREA_TANK_SPRITE, TANK_SOUND)
+        self.life = 30
+        self.cadence = 2000
+        self.image = pygame.transform.rotate(self.image, -90)
+
+    def create_projectile(self):
+        self.projectiles.append(Projectile((self.rect.centerx, self.rect.centery), self.radians, 0, 10, (255, 255, 0)))
+
+
+class TeslaRoadster(Spaceship):
+    def __init__(self, position, rotation):
+        super().__init__(position, rotation, TESLA_UPGRADED_SPRITE, TIE_SOUND)
+        self.life = 20
+        self.cadence = 1000
+        self.image = pygame.transform.rotate(self.image, -90)
+
+    def create_projectile(self):
+        self.projectiles.append(Projectile((self.rect.centerx, self.rect.centery), self.radians, 0, 10, (0, 0, 255)))

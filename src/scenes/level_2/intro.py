@@ -33,7 +33,7 @@ class IntroScene2(Scene):
         al borde de una guerra intergaláctica sin precedentes. 
         Tras el inesperado ataque fallido hacia la Tierra, 
         liderado por el temible General Vader, los humanos, 
-        ahora conscientes de la existencia de una fuerza imperial en Marte, 
+        ahora conscientes de la existencia de la fuerza imperial, 
         se movilizan bajo la guía de Elon Musk. 
         Con la resolución ardiente de proteger su hogar y explorar
         los misterios de este nuevo adversario, la Tierra se convierte 

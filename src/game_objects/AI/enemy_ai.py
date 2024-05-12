@@ -1,35 +1,46 @@
 import math
+import pygame
 
 
 class EnemyAI:
-    def __init__(self, enemy, player):
-        self.enemy = enemy
-        self.player = player
-
-    def update(self):
-        # Calculate direction to the player
-        direction_to_player = (self.player.position[0] - self.enemy.position[0],
-                               self.player.position[1] - self.enemy.position[1])
+    def update(self, enemy, player, max_speed):
+        # Calculate distance to the player
+        direction_to_player = (player.rect.x - enemy.rect.x,
+                               player.rect.y - enemy.rect.y)
 
         # Calculate rotation angle to face the player
-        target_angle = math.atan2(direction_to_player[1], direction_to_player[0])
-        angle_diff = target_angle - self.enemy.rotation
-        # Adjust angle_diff to be between -pi and pi for smoother rotation
-        if angle_diff > math.pi:
-            angle_diff -= 2 * math.pi
-        elif angle_diff < -math.pi:
-            angle_diff += 2 * math.pi
+        target_angle = math.atan2(direction_to_player[1], -direction_to_player[0])
+        target_angle_deg = math.degrees(target_angle)
 
-        # Rotate enemy
-        rotation_speed = 0.05  # Adjust this value based on your game
-        if abs(angle_diff) > rotation_speed:
-            rotation_direction = 1 if angle_diff > 0 else -1
-            self.enemy.rotation += rotation_speed * rotation_direction
-        else:
-            self.enemy.rotation = target_angle
+        # Normalize the target angle to be in the range of 0 to 360 degrees
+        if target_angle_deg < 0:
+            target_angle_deg += 360
 
-        # Shoot at player if within range
-        distance_to_player = math.sqrt(direction_to_player[0] ** 2 + direction_to_player[1] ** 2)
+        # Normalize the enemy angle to be in the range of 0 to 360 degrees
+        if enemy.angle >= 360:
+            enemy.angle -= 360
+        elif enemy.angle < 0:
+            enemy.angle += 360
+
+        # Calculate the difference between the target angle and the enemy angle
+        angle_diff = target_angle_deg - enemy.angle
+
+        # Normalize the angle difference to be in the range of -180 to 180 degrees
+        if angle_diff > 180:
+            angle_diff -= 360
+        elif angle_diff < -180:
+            angle_diff += 360
+
+        # Rotate enemy in the shortest direction
+        if angle_diff > 0:
+            enemy.rotate(0.5)
+        elif angle_diff < 0:
+            enemy.rotate(-0.5)
+
         # if aiming in +- 10 degrees of the player shoot
-        if abs(angle_diff) < math.radians(10):
-            self.enemy.shoot()
+        if abs(angle_diff) < 10:
+            enemy.shoot(pygame.time.get_ticks())
+
+        # Accelerate until max speed
+        if enemy.speed < max_speed:
+            enemy.increase_speed()

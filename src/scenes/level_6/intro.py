@@ -26,27 +26,24 @@ class IntroScene4(Scene):
         # Texto de la intro
         self.intro_text = """
         LA SOMBRA DEL IMPERIO
-        LA TIERRA SE UNE
+        DESTINO FINAL
 
 
-        Tras el ataque fallido del General Vader, la humanidad se encuentra
-        al borde de una guerra intergaláctica sin precedentes. 
-        Tras el inesperado ataque fallido hacia la Tierra, 
-        liderado por el temible General Vader, los humanos, 
-        ahora conscientes de la existencia de una fuerza imperial en Marte, 
-        se movilizan bajo la guía de Kim Jong Ill junto a Elon Musk. 
-        Con la resolución ardiente de proteger su hogar, 
-        a pesar de las diferencias ideológicas, la Tierra se convierte
-        en un hervidero de actividad científica y militar.
+        Tras el tercer ataque fallido del General Vader, la humanidad se encuentra
+        unida contra su destrucción. 
+        Korea del Norte, liderado por Kim Jong Ill, y Estados Unidos,
+        liderado por Donald Trump, junto al magnate Elon Musk,
+        han dejado de lado sus diferencias para enfrentar la amenaza imperial. 
         
-        Mientras tanto, en Marte, el ejército imperial empieza a temer
-        por las capacidades tecnológicas de la Tierra.
-        En un intento desesperado por salvaguardar sus secretos y su supervivencia,
-        el General Vader convoca a los más grandes estrategas y científicos de
-        su imperio para idear un plan que asegure la victoria sobre la humanidad.  
-
-
-        Código: Team Korea
+        La humanidad se prepara para la batalla final,
+        la batalla que decidirá el destino de la galaxia.
+        
+        Por su parte, el coronel Darth Vader, líder del Imperio, protegerá con su
+        nave TIE Fighter a la Estrella de la Muerte, la cual se encuentra recargando
+        energía para destruir la Tierra, harto de que la humanidad
+        inunde el espacio con sus cohetes y basura espacial.
+        
+        Código: Trigonometria
         """
 
         # Dividir el texto en líneas

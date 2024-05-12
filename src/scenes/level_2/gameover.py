@@ -58,8 +58,6 @@ class GameOver1(Scene):
         # Definimos el fondo de pantalla
         self.background = pygame.image.load(BACKGROUND_INTRO).convert_alpha()
 
-        self.sound_narrator = pygame.mixer.Sound(LEVEL2_NARRATOR)
-
         # Bajamos el volumen de la musica
         pygame.mixer.music.set_volume(0.5)
 
@@ -67,12 +65,7 @@ class GameOver1(Scene):
         self.timer = 0
 
     def update(self):
-        if self.timer < 230:
-            self.timer += 1
-        elif self.timer == 230:
-            self.sound_narrator.play()
-            self.timer += 1
-        elif self.timer < 2500:
+        if self.timer < 2500:
             self.timer += 1
         else:
             self.done = True
@@ -96,7 +89,6 @@ class GameOver1(Scene):
 
     def run(self):
         super().run()
-        self.sound_narrator.stop()
 
     def handle_events(self):
         for event in pygame.event.get():

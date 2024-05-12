@@ -17,6 +17,8 @@ from scenes.winner import RebelWinner, ImperiumWinner
 from scenes.level_2.gameover import GameOver1
 from scenes.level_4.gameover2 import GameOver2
 from scenes.level_6.gameover3 import GameOver3
+from scenes.Final.final import FinalScene
+from scenes.credits import Credits
 from scenes.gameover import GameOver
 from settings import *
 
@@ -50,8 +52,10 @@ def get_scene_by_name(scene_name, screen, resources=None):
     elif scene_name == "intro4":
         return IntroScene4(screen)
     # Checkpoint 3
-    elif scene_name == "final":
+    elif scene_name == "MilleniumFalcon":
         return FinalBattle(screen)
+    elif scene_name == "FinalScene":
+        return FinalScene(screen)
     # Gameover
     elif scene_name == "Gameover1":
         return GameOver1(screen)
@@ -61,6 +65,8 @@ def get_scene_by_name(scene_name, screen, resources=None):
         return GameOver3(screen)
     elif scene_name == "Gameover":
         return GameOver(screen)
+    elif scene_name == "Credits":
+        return Credits(screen)
     # Multiplayer
     elif scene_name == "localMP":
         return LocalMPScene(screen)
@@ -82,7 +88,7 @@ def main():
 
     # Set up the current scene
     # current_scene = MenuScene(screen)
-    current_scene = FinalBattle(screen)
+    current_scene = Credits(screen)
     # Set up the window title, icon and background
     pygame.display.set_caption('La sombra del Imperio: Guardianes de la paz')
     icon = pygame.image.load(ICON_PATH)

@@ -19,6 +19,7 @@ BACKGROUND_MENU = os.path.join(BASE_DIR, './assets/images/backgrounds/bgMenu.jpg
 # Spaceships
 TIE_SPRITE = os.path.join(BASE_DIR, './assets/images/spaceships/tie.png')
 XWING_SPRITE = os.path.join(BASE_DIR, './assets/images/spaceships/xwing.png')
+FALCON_SPRITE = os.path.join(BASE_DIR, './assets/images/spaceships/millenium_falcon.png')
 # Animations
 EXPLOSION_SPRITE = os.path.join(BASE_DIR, './assets/images/explosion/explosion.png')
 # Others
@@ -70,6 +71,7 @@ LEVEL4_NARRATOR = os.path.join(BASE_DIR, './assets/sounds/narrator/level4.ogg')
 
 # Videos
 DEATHSTAR_SHOOT_VIDEO = os.path.join(BASE_DIR, './assets/videos/deathstarShoot.mp4')
+DEATHSTAR_HIT_EARTH_VIDEO = os.path.join(BASE_DIR, './assets/videos/deathstarHitEarth.mp4')
 
 # Fonts
 FONT_PATH = os.path.join(BASE_DIR, './assets/fonts/gameFont.ttf')
@@ -81,13 +83,13 @@ LEVEL4_ENEMIES = 100
 # Codes
 CODES = {
     "intro": "intro",
-    "Deathstar": "Deathstar",
+    "ElonMusk": "Deathstar",
     "intro2": "intro2",
     "Arcadedon": "Arcadedon",
     "Deathstar2": "Deathstar2",
     "intro3": "intro3",
     "Team Korea": "Arcadedon2",
     "Deathstar3": "Deathstar3",
-    "largavidaalimperio": "ImperiumWinner",
-    "ElonMusk": "Deathstar"
+    "Trigonometria": "MilleniumFalcon",
+    "largavidaalimperio": "ImperiumWinner"
 }

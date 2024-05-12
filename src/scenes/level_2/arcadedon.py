@@ -226,5 +226,5 @@ class Arcadedon(Scene):
             ])
         elif self.dialogue_box.finished and self.story_stage == 6:
             self.show_dialogue = False
-            self.next_scene = "intro3"
+            self.next_scene = "Deathstar2"
             self.done = True
