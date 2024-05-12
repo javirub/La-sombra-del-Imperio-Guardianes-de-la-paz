@@ -91,5 +91,6 @@ CODES = {
     "Team Korea": "Arcadedon2",
     "Deathstar3": "Deathstar3",
     "Trigonometria": "MilleniumFalcon",
-    "largavidaalimperio": "ImperiumWinner"
+    "largavidaalimperio": "ImperiumWinner",
+    "estomereceun10": "Credits"
 }

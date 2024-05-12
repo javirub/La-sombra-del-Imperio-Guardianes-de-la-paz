@@ -74,6 +74,8 @@ class Credits(Scene):
         Every character and image used in this game is for educational purposes only.
         It is not intended to be shared or distributed as there are several copyrighted images
         and real life characters used without permission.
+        
+        Código: estomereceun10
         """
 
         # Dividir el texto en líneas
