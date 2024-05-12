@@ -14,6 +14,7 @@ class Arcadedon_with_steroids(Scene):
         self.active_enemies = None
         self.next_scene = "menu"
         pygame.mixer.init()
+        pygame.mixer.set_num_channels(20)
         self.background = pygame.image.load(BACKGROUND_PATH).convert_alpha()
         self.earth = pygame.image.load(EARTH_PLANET_SPRITE).convert_alpha()
 

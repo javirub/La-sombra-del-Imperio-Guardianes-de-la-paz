@@ -117,5 +117,5 @@ class DeathstarScene3(Scene):
         elif self.dialogue_box.finished and self.story_stage == 5:
             # Esto es para que no se muestre el mensaje de dialogo vacio mientras se carga el siguiente nivel
             self.show_dialogue = False
-            self.next_scene = "MilleniumFalcon"
+            self.next_scene = "Intro4"
             self.done = True

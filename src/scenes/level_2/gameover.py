@@ -1,17 +1,15 @@
 import sys
-
 import pygame
 
 from settings import *
-from ..scene import Scene  # Importa la clase Scene desde el módulo scene.py
-from game_objects.arcade.spaceships import TeslaRoadster, ComunistSpaceship
+from scenes.scene import Scene  # Importa la clase Scene desde el módulo scene.py
 
 
-class IntroScene3(Scene):
+class GameOver1(Scene):
     def __init__(self, screen):
         super().__init__(screen)
         # Inicializa la escena
-        self.next_scene = "Arcadedon2"  # Define a qué escena cambiar después
+        self.next_scene = "menu"  # Define a qué escena cambiar después
 
         # Iniciamos el módulo mixer de pygame
         pygame.mixer.init()
@@ -24,29 +22,30 @@ class IntroScene3(Scene):
         self.text_color = (255, 255, 0)  # Color amarillo
 
         # Texto de la intro
-        self.intro_text = """
-        LA SOMBRA DEL IMPERIO
-        LA TIERRA SE UNE
+        self.intro_text = """GAME OVER
 
+        La humanidad, unida bajo el estandarte de la exploración y la esperanza,
+        ha enfrentado el tormento de la guerra intergaláctica, 
+        emergiendo victoriosa contra un enemigo cuyo poder parecía invencible. 
+        Con cada planeta salvado y cada vida preservada, 
+        se ha tejido una saga de resistencia, demostrando que incluso en la oscuridad más profunda,
+        la luz de la humanidad puede brillar con una fuerza que desafía a las estrellas.
 
-        Tras el ataque fallido del General Vader, la humanidad se encuentra
-        al borde de una guerra intergaláctica sin precedentes. 
-        Tras el inesperado ataque fallido hacia la Tierra, 
-        liderado por el temible General Vader, los humanos, 
-        ahora conscientes de la existencia de una fuerza imperial en Marte, 
-        se movilizan bajo la guía de Kim Jong Ill junto a Elon Musk. 
-        Con la resolución ardiente de proteger su hogar, 
-        a pesar de las diferencias ideológicas, la Tierra se convierte
-        en un hervidero de actividad científica y militar.
-        
-        Mientras tanto, en Marte, el ejército imperial empieza a temer
-        por las capacidades tecnológicas de la Tierra.
-        En un intento desesperado por salvaguardar sus secretos y su supervivencia,
-        el General Vader convoca a los más grandes estrategas y científicos de
-        su imperio para idear un plan que asegure la victoria sobre la humanidad.  
+        El sacrificio y la innovación han sido sus armas; 
+        la solidaridad y el sueño de un futuro mejor, su escudo. 
+        En este momento definitivo, Elon Musk, el arquitecto de esta nueva era, 
+        se dirige a los corazones y mentes de todos los seres del cosmos, 
+        proclamando que más allá de la devastación de la guerra, 
+        yace la promesa de la paz y la cooperación intergaláctica.
 
+        Hoy, mientras las naves regresan a casa y las familias se 
+        reencuentran en un mundo que ha conocido el filo del abismo, 
+        se cierra un capítulo de nuestra historia, pero se abre el vasto libro del mañana. 
+        La victoria de la humanidad no es solo el fin del Imperio, 
+        sino el amanecer de una nueva era de exploración, 
+        donde los secretos del universo esperan ser descubiertos por 
+        aquellos lo suficientemente valientes como para mirar hacia las estrellas. 
 
-        Código: Team Korea
         """
 
         # Dividir el texto en líneas
@@ -59,7 +58,7 @@ class IntroScene3(Scene):
         # Definimos el fondo de pantalla
         self.background = pygame.image.load(BACKGROUND_INTRO).convert_alpha()
 
-        self.sound_narrator = pygame.mixer.Sound(LEVEL4_NARRATOR)
+        self.sound_narrator = pygame.mixer.Sound(LEVEL2_NARRATOR)
 
         # Bajamos el volumen de la musica
         pygame.mixer.music.set_volume(0.5)
@@ -67,22 +66,7 @@ class IntroScene3(Scene):
         # Contador para el narrador
         self.timer = 0
 
-        # Precargar enemigos siguiente nivel
-        self.TESLA_SPRITE = pygame.image.load(ARCADE_TESLA_SPRITE).convert_alpha()  # This way only one time is loaded
-        self.KOREA_TANK_SPRITE = pygame.image.load(KOREA_TANK_SPRITE).convert_alpha()
-        self.resources = []
-        self.enemies_created = 0
-
-    def load_resources(self):
-        if self.enemies_created < LEVEL4_ENEMIES:
-            if self.enemies_created % 5 == 0:
-                self.resources.append(ComunistSpaceship((WIDTH - 220, 100), self.KOREA_TANK_SPRITE))
-            else:
-                self.resources.append(TeslaRoadster((WIDTH - 220, 100), self.TESLA_SPRITE))
-            self.enemies_created += 1
-
     def update(self):
-        self.load_resources()
         if self.timer < 230:
             self.timer += 1
         elif self.timer == 230:

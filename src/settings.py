@@ -66,6 +66,7 @@ WOOKIE_SOUND = os.path.join(BASE_DIR, './assets/sounds/wookie.wav')
 # Narrator
 LEVEL1_NARRATOR = os.path.join(BASE_DIR, './assets/sounds/narrator/level1.ogg')
 LEVEL2_NARRATOR = os.path.join(BASE_DIR, './assets/sounds/narrator/level2.ogg')
+LEVEL4_NARRATOR = os.path.join(BASE_DIR, './assets/sounds/narrator/level4.ogg')
 
 # Videos
 DEATHSTAR_SHOOT_VIDEO = os.path.join(BASE_DIR, './assets/videos/deathstarShoot.mp4')
@@ -79,9 +80,14 @@ LEVEL4_ENEMIES = 100
 
 # Codes
 CODES = {
-    "estomereceun10": "intro", # Cambiar a final
-    "prueba": "localMP",
+    "intro": "intro",
+    "Deathstar": "Deathstar",
+    "intro2": "intro2",
+    "Arcadedon": "Arcadedon",
+    "Deathstar2": "Deathstar2",
+    "intro3": "intro3",
+    "Team Korea": "Arcadedon2",
+    "Deathstar3": "Deathstar3",
     "largavidaalimperio": "ImperiumWinner",
-    "ElonMusk": "Deathstar",
-    "Arcadedon": "Arcadedon"
+    "ElonMusk": "Deathstar"
 }

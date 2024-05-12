@@ -7,11 +7,11 @@ from ..scene import Scene  # Importa la clase Scene desde el módulo scene.py
 from game_objects.arcade.spaceships import TeslaRoadster, ComunistSpaceship
 
 
-class IntroScene3(Scene):
+class IntroScene4(Scene):
     def __init__(self, screen):
         super().__init__(screen)
         # Inicializa la escena
-        self.next_scene = "Arcadedon2"  # Define a qué escena cambiar después
+        self.next_scene = "MilleniumFalcon"  # Define a qué escena cambiar después
 
         # Iniciamos el módulo mixer de pygame
         pygame.mixer.init()

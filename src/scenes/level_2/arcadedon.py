@@ -169,7 +169,7 @@ class Arcadedon(Scene):
             self.next_scene = "menu"
             self.show_dialogue = True
         if self.player.life <= 0 and not self.player.animating:
-            self.next_scene = "Gameover"
+            self.next_scene = "Gameover1"
             self.done = True
 
     def show_dialogues(self):
