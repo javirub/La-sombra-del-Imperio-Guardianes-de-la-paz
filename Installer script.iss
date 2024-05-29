@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "La sombra del Imperio Guardianes de la paz"
-#define MyAppVersion "0.1"
+#define MyAppVersion "1.0.0"
 #define MyAppPublisher "Javi Rubio Roca"
 #define MyAppURL "https://www.linkedin.com/in/javirub/"
 #define MyAppExeName "main.exe"
