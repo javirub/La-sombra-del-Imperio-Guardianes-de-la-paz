@@ -60,5 +60,5 @@ Los niveles están diseñados para ir avanzando en la historia y adquiriendo nue
 - Estimado en $0M USD para completar el desarrollo.
 
 ### Recursos
-- Equipo de 30 desarrolladores, artistas y diseñadores.
+- Equipo de 1 desarrollador, artista y diseñador.
 
