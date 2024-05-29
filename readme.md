@@ -1,4 +1,4 @@
-# Game Design Document (GDD) - Guardians of the Forest
+# Game Design Document (GDD) - Guardianes de la paz
 
 ## 1. Título del Documento
 - **Nombre del Juego**: La sombra del Imperio: Guardianes de la paz
