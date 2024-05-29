@@ -5,9 +5,6 @@
 - **Fecha**: 29 de Mayo de 2024
 - **Versión**: 1.0.0
 
-## 2. Resumen Ejecutivo
-La sombra del Imperio: Guardianes de la paz es un juego donde el protagonista, Darth Vader, debe destruir la tierra. Para ello deberá cargar la estrella de la muerte pero se encontrará con numerosos obstaculos.
-
 ## 2. Concepto del Juego
 ### Visión General
 Este juego propone un sistema de progresión de naves espaciales, donde a cada nivel se va añadiendo alguna nueva funcionalidad.
